@@ -39,7 +39,12 @@ Full server-side rendering (`output: "server"` in astro.config.mjs). All pages a
 - **Supabase migrations**: `supabase/migrations/` using naming format `YYYYMMDDHHmmss_short_description.sql`. Always enable RLS on new tables with granular per-operation, per-role policies. No migrations exist yet — this project currently only uses Supabase Auth's built-in `auth.users` table (see README).
 - **React**: no Next.js directives ("use client" etc.). Extract hooks to `src/components/hooks/`.
 - **Services/helpers** go in `src/lib/` (or `src/lib/services/` for extracted business logic).
+- **Feature module structure**: a feature under `src/lib/services/` (or similar grouped folder) should keep `index.ts` (public exports), `types.ts` (local types), and colocated tests under `__tests__/` — don't scatter these across the codebase.
 - **Shared types** (entities, DTOs) go in `src/types.ts`.
+- **API error responses**: return `{ error: { code, message } }`, never a bare string or `{ error: string }`.
+- **File naming**: feature-specific files use dot-suffix naming, e.g. `item.service.ts`, `item.handler.ts` — not `itemService.ts` or `ItemHandler.ts`.
+- **Imports**: use the `@/*` absolute alias for anything outside the current directory (e.g. `@/lib/utils`, `@/components/ui/button`). Avoid `../../` chains of more than one level.
+- **Dates**: always store and compare in UTC; use a shared `formatDate()` helper (add to `@/lib/utils` if missing) instead of raw `new Date().toISOString()` scattered across files.
 
 ### Environment
 
