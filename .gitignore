@@ -63,3 +63,14 @@ package.json.scaffold
 
 # === macOS śmieci, które wyszły w find ===
 **/.DS_Store
+
+# from 10x-astro-starter
+# build output
+# generated types
+# dependencies
+# logs
+# environment variables
+.env.production
+# cloudflare
+# macOS-specific files
+# jetbrains setting folder
