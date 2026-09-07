@@ -5,7 +5,7 @@ project_name: 10x-cards
 hints:
   language_family: js
   team_size: solo
-  deployment_target: cloudflare-pages
+  deployment_target: cloudflare-workers
   ci_provider: github-actions
   ci_default_flow: auto-deploy-on-merge
   bootstrapper_confidence: first-class
@@ -31,7 +31,8 @@ TypeScript-first, convention-based surface for the AI-generation API route to
 call an LLM against. The short timeline favors a battle-tested, opinionated
 starter over assembling auth/database/deploy piecemeal. Bootstrapper
 confidence is first-class — expect mostly-smooth scaffolding with occasional
-manual steps. Deployment defaults to Cloudflare Pages (the starter's own
-default) and CI runs on GitHub Actions with auto-deploy on merge to main,
+manual steps. Deployment targets Cloudflare Workers (`@astrojs/cloudflare` v13
+dropped Pages support, so Workers is the only valid target) and CI runs on
+GitHub Actions with auto-deploy on merge to main,
 matching a solo after-hours workflow with no staging-gate need. Payments,
 realtime, and background jobs are all out of scope per the PRD's non-goals.
