@@ -65,5 +65,8 @@
     "*.{json,css,md}": [
       "prettier --write"
     ]
+  },
+  "allowScripts": {
+    "supabase@2.98.2": true
   }
 }

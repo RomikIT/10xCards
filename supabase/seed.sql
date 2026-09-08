@@ -1,0 +1,3 @@
+-- Intentionally empty: this project has no custom tables yet, only Supabase
+-- Auth's built-in auth.users table (see README.md's Supabase Configuration
+-- section). Referenced by supabase/config.toml's db.seed.sql_paths.
