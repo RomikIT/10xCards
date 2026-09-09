@@ -171,25 +171,25 @@ This is a net-new table — no existing data to migrate. Future migrations (F-02
 
 #### Automated
 
-- [x] 1.1 Migration file follows naming convention
-- [x] 1.2 Migration applies cleanly against a local Supabase instance
-- [x] 1.3 Lint passes
+- [x] 1.1 Migration file follows naming convention — 44674c1
+- [x] 1.2 Migration applies cleanly against a local Supabase instance — 44674c1
+- [x] 1.3 Lint passes — 44674c1
 
 #### Manual
 
-- [x] 1.4 RLS enabled with exactly 4 policies
-- [x] 1.5 Two-user RLS isolation verified
-- [x] 1.6 `updated_at` trigger verified
-- [x] 1.7 Cascade delete on user removal verified
-- [x] 1.8 CHECK constraints reject empty/oversized question or answer
+- [x] 1.4 RLS enabled with exactly 4 policies — 44674c1
+- [x] 1.5 Two-user RLS isolation verified — 44674c1
+- [x] 1.6 `updated_at` trigger verified — 44674c1
+- [x] 1.7 Cascade delete on user removal verified — 44674c1
+- [x] 1.8 CHECK constraints reject empty/oversized question or answer — 44674c1
 
 ### Phase 2: TypeScript entity type
 
 #### Automated
 
-- [ ] 2.1 Build passes
-- [ ] 2.2 Lint passes
+- [x] 2.1 Build passes
+- [x] 2.2 Lint passes
 
 #### Manual
 
-- [ ] 2.3 `Flashcard` type field-by-field diff against migration confirmed
+- [x] 2.3 `Flashcard` type field-by-field diff against migration confirmed
