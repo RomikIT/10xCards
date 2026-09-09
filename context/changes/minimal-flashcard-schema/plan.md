@@ -187,9 +187,9 @@ This is a net-new table — no existing data to migrate. Future migrations (F-02
 
 #### Automated
 
-- [x] 2.1 Build passes
-- [x] 2.2 Lint passes
+- [x] 2.1 Build passes — cd9f2f2
+- [x] 2.2 Lint passes — cd9f2f2
 
 #### Manual
 
-- [x] 2.3 `Flashcard` type field-by-field diff against migration confirmed
+- [x] 2.3 `Flashcard` type field-by-field diff against migration confirmed — cd9f2f2
