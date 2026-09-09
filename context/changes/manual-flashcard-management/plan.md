@@ -232,33 +232,33 @@ Not applicable — no schema changes; this plan only adds application code on to
 
 #### Automated
 
-- [x] 1.1 Lint passes: `npm run lint`
-- [x] 1.2 Build succeeds: `npm run build`
+- [x] 1.1 Lint passes: `npm run lint` — 8a987ed
+- [x] 1.2 Build succeeds: `npm run build` — 8a987ed
 
 #### Manual
 
-- [x] 1.3 Unauthenticated GET returns 401
-- [x] 1.4 POST creates a flashcard, visible in subsequent GET
-- [x] 1.5 POST with invalid question/answer returns validation_error, not a raw error
-- [x] 1.6 PATCH updates a flashcard, updated_at changes
-- [x] 1.7 DELETE removes a flashcard; second DELETE returns 404
-- [x] 1.8 Cross-user RLS scoping verified through the API layer
+- [x] 1.3 Unauthenticated GET returns 401 — 8a987ed
+- [x] 1.4 POST creates a flashcard, visible in subsequent GET — 8a987ed
+- [x] 1.5 POST with invalid question/answer returns validation_error, not a raw error — 8a987ed
+- [x] 1.6 PATCH updates a flashcard, updated_at changes — 8a987ed
+- [x] 1.7 DELETE removes a flashcard; second DELETE returns 404 — 8a987ed
+- [x] 1.8 Cross-user RLS scoping verified through the API layer — 8a987ed
 
 ### Phase 2: Frontend — flashcards page and React components
 
 #### Automated
 
-- [ ] 2.1 Lint passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Lint passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 2.3 Signed-out visit to /flashcards redirects to signin
-- [ ] 2.4 Empty state renders with zero flashcards
-- [ ] 2.5 Create flow works without full page reload
-- [ ] 2.6 Client-side length validation blocks out-of-range submissions
-- [ ] 2.7 Inline edit (Save/Cancel) works correctly
-- [ ] 2.8 Delete confirmation dialog works correctly
-- [ ] 2.9 Dashboard link to /flashcards works
-- [ ] 2.10 Simulated create/edit/delete failure shows inline error, clears on next success
-- [ ] 2.11 Double-click on Save/Confirm-delete sends exactly one request; button shows disabled/pending state meanwhile
+- [x] 2.3 Signed-out visit to /flashcards redirects to signin
+- [x] 2.4 Empty state renders with zero flashcards
+- [x] 2.5 Create flow works without full page reload
+- [x] 2.6 Client-side length validation blocks out-of-range submissions
+- [x] 2.7 Inline edit (Save/Cancel) works correctly
+- [x] 2.8 Delete confirmation dialog works correctly
+- [x] 2.9 Dashboard link to /flashcards works
+- [x] 2.10 Simulated create/edit/delete failure shows inline error, clears on next success
+- [x] 2.11 Double-click on Save/Confirm-delete sends exactly one request; button shows disabled/pending state meanwhile

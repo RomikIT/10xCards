@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { listFlashcards } from "@/lib/services/flashcards.service";
+import { FlashcardManager } from "@/components/flashcards/FlashcardManager";
+import type { Flashcard } from "@/types";
+
+const supabase = createClient(Astro.request.headers, Astro.cookies);
+
+let initialFlashcards: Flashcard[] = [];
+let initialError: string | null = null;
+
+if (supabase) {
+  const result = await listFlashcards(supabase);
+  if ("data" in result) {
+    initialFlashcards = result.data;
+  } else {
+    initialError = result.error.message;
+  }
+}
+---
+
+<Layout title="Your Flashcards">
+  <div class="bg-cosmic min-h-screen p-4 py-12">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-6 flex items-center justify-between">
+        <h1 class="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
+          Your Flashcards
+        </h1>
+        <a href="/dashboard" class="text-sm text-blue-100/70 hover:text-white">← Dashboard</a>
+      </div>
+      <FlashcardManager client:load initialFlashcards={initialFlashcards} initialError={initialError} />
+    </div>
+  </div>
+</Layout>
