@@ -232,17 +232,17 @@ Not applicable — no schema changes; this plan only adds application code on to
 
 #### Automated
 
-- [ ] 1.1 Lint passes: `npm run lint`
-- [ ] 1.2 Build succeeds: `npm run build`
+- [x] 1.1 Lint passes: `npm run lint`
+- [x] 1.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 1.3 Unauthenticated GET returns 401
-- [ ] 1.4 POST creates a flashcard, visible in subsequent GET
-- [ ] 1.5 POST with invalid question/answer returns validation_error, not a raw error
-- [ ] 1.6 PATCH updates a flashcard, updated_at changes
-- [ ] 1.7 DELETE removes a flashcard; second DELETE returns 404
-- [ ] 1.8 Cross-user RLS scoping verified through the API layer
+- [x] 1.3 Unauthenticated GET returns 401
+- [x] 1.4 POST creates a flashcard, visible in subsequent GET
+- [x] 1.5 POST with invalid question/answer returns validation_error, not a raw error
+- [x] 1.6 PATCH updates a flashcard, updated_at changes
+- [x] 1.7 DELETE removes a flashcard; second DELETE returns 404
+- [x] 1.8 Cross-user RLS scoping verified through the API layer
 
 ### Phase 2: Frontend — flashcards page and React components
 

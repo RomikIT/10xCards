@@ -45,7 +45,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 | F-02 | srs-library-and-review-schema     | (foundation) a spaced-repetition library is chosen and its review-state schema lands | F-01           | FR-009, FR-010                            | blocked  |
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | in-progress |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | proposed |
-| S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | planning |
+| S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | in-progress |
 | S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-02, S-02     | FR-009, FR-010                            | proposed |
 
 ## Streams
@@ -138,7 +138,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Standard CRUD on the table F-01 creates; no new external-integration risk. Kept as one slice rather than split by CRUD verb, since create/view/edit/delete of the same entity are the minimum viable "manage my own flashcards" capability together. Runs in parallel with S-02 to make efficient use of limited solo, after-hours development time.
-- **Status:** planning
+- **Status:** in-progress
 
 ### S-04: User can review due flashcards via spaced repetition
 
