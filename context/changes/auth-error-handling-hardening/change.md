@@ -1,7 +1,7 @@
 ---
 change_id: auth-error-handling-hardening
 title: Wrap Supabase Auth calls in try/catch across auth routes and middleware
-status: new
+status: implementing
 created: 2026-09-09
 updated: 2026-09-09
 archived_at: null

@@ -22,3 +22,18 @@ export function createClient(requestHeaders: Headers, cookies: AstroCookies) {
     },
   });
 }
+
+export const GENERIC_AUTH_ERROR_MESSAGE = "Something went wrong. Please try again.";
+
+export async function callSupabaseAuth<T>(
+  routeLabel: string,
+  fn: () => Promise<T>,
+): Promise<{ ok: true; value: T } | { ok: false }> {
+  try {
+    const value = await fn();
+    return { ok: true, value };
+  } catch (error) {
+    console.error(`[auth:${routeLabel}]`, error);
+    return { ok: false };
+  }
+}

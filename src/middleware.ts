@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { createClient } from "@/lib/supabase";
+import { callSupabaseAuth, createClient } from "@/lib/supabase";
 
 const PROTECTED_ROUTES = ["/dashboard"];
 
@@ -7,10 +7,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const supabase = createClient(context.request.headers, context.cookies);
 
   if (supabase) {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    context.locals.user = user ?? null;
+    const result = await callSupabaseAuth("middleware", () => supabase.auth.getUser());
+    context.locals.user = result.ok ? (result.value.data.user ?? null) : null;
   } else {
     context.locals.user = null;
   }
