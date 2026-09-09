@@ -71,7 +71,7 @@ No code changes are planned. If re-verification surfaces a regression, fix it in
 - Signin before confirming email: signin with test email B (never confirmed) + correct password → `302` → `/auth/signin?error=Email%20not%20confirmed`. No session granted, no crash.
 - Duplicate signup: re-signing up test email A hit Supabase's per-email cooldown, then (after waiting it out) the project-wide "email rate limit exceeded" — both returned clean error redirects, no crash, no account-existence leak. Did not reach the literal "already registered" response before hitting the rate limit; stopped retrying to avoid burning more of the live Supabase project's email-sending quota. This matches the same "email rate limit exceeded" observation `context/changes/deployment/deployment-plan.md` Phase 5 already recorded for this exact situation.
 - No regression found — nothing required a fix.
-- User confirmed (2026-09-09): full production happy-path re-tested directly against the live Worker (`https://10xcards.romanj23-f66.workers.dev/`) and passed; the two local test accounts (`signup-test-piotrek-20260909-a@gmail.com`, `...-b@gmail.com`) were deleted from the Supabase dashboard.
+- User confirmed (2026-09-09): full production happy-path re-tested directly against the live Worker (`https://10xcards.romanj23-f66.workers.dev/`) and passed; the two local test accounts (`signup-test-piotrek-20260909-a@gmail.com`, `...-b@gmail.com`) were deleted from the Supabase dashboard. Site URL / redirect-allowlist correctness is confirmed indirectly: the confirm-email link click (which requires a correct Site URL to land back on the live Worker) succeeded as part of this happy-path pass — the exact failure mode `context/foundation/lessons.md`'s Site URL lesson warns about did not occur.
 
 **Implementation Note**: After completing this phase and all automated verification passes, pause here for manual confirmation from the human that the manual testing was successful before proceeding to close out the change.
 
@@ -120,7 +120,7 @@ Not applicable — no schema or data changes.
 - [x] 1.3 Signup reachability verified locally (automated): signup request redirects to /auth/confirm-email — 93f5e74
 - [x] 1.4 Wrong password shows clear error, no crash (automated, local) — 93f5e74
 - [x] 1.5 Signin before confirming email behaves sanely (automated, local) — 93f5e74
-- [x] 1.6 Duplicate signup doesn't crash or contradict Supabase anti-enumeration defaults (automated, local) — 93f5e74
+- [x] 1.6 Duplicate signup attempt doesn't crash; hit Supabase per-email cooldown then project-wide rate limiting before reaching the literal "already registered" response (see Results) — 93f5e74
 - [x] 1.7 Any config/secret-level regression found is fixed inline and re-run to confirm; any code-level regression is left unresolved here and handed off to a new change — 93f5e74
 - [x] 1.8 Test accounts created during local automated verification are deleted from the Supabase dashboard — 93f5e74
 - [x] 1.9 OUTSTANDING: full production happy-path (confirm-email click → signin → dashboard → signout) and Site URL/redirect correctness verified on the live Worker — 93f5e74
