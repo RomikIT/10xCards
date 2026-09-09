@@ -44,7 +44,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 | F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | in-progress |
 | F-02 | srs-library-and-review-schema     | (foundation) a spaced-repetition library is chosen and its review-state schema lands | F-01           | FR-009, FR-010                            | blocked  |
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | in-progress |
-| S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | proposed |
+| S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | in-progress |
 | S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | in-progress |
 | S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-02, S-02     | FR-009, FR-010                            | proposed |
 
@@ -126,7 +126,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
   - Which prompt/extraction approach actually yields flashcards good enough to hit the 75% acceptance target — needs at least one round of testing against real pasted study text. Owner: user. Block: no.
   - The OpenRouter API key must be provisioned as a Worker secret (`wrangler secret put`) before this reaches production — easy to skip silently, per `infrastructure.md`'s risk register. Owner: user. Block: no.
 - **Risk:** The only slice with a new external AI-provider integration, and the one the PRD's primary success metrics measure directly. Sequenced immediately after the data foundation because the "speed" goal means core value comes before polish, not after — and because it's the prerequisite that unlocks the north star, S-04.
-- **Status:** proposed
+- **Status:** in-progress
 
 ### S-03: User can manually create, view, edit, and delete flashcards
 
