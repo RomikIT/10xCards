@@ -2,7 +2,13 @@ import type { APIRoute } from "astro";
 import { callSupabaseAuth, createClient, GENERIC_AUTH_ERROR_MESSAGE } from "@/lib/supabase";
 
 export const POST: APIRoute = async (context) => {
-  const form = await context.request.formData();
+  let form: FormData;
+  try {
+    form = await context.request.formData();
+  } catch (error) {
+    console.error("[auth:signup] formData parse failed", error);
+    return context.redirect(`/auth/signup?error=${encodeURIComponent(GENERIC_AUTH_ERROR_MESSAGE)}`);
+  }
   const email = form.get("email") as string;
   const password = form.get("password") as string;
 
