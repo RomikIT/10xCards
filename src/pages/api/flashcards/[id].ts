@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase";
 import { deleteFlashcard, updateFlashcard } from "@/lib/services/flashcards.service";
 import type { UpdateFlashcardCommand } from "@/types";
 
+const MAX_LENGTH = 2000;
+
 export const PATCH: APIRoute = async (context) => {
   if (!context.locals.user) {
     return Response.json({ error: { code: "unauthorized", message: "You must be signed in." } }, { status: 401 });
@@ -21,12 +23,19 @@ export const PATCH: APIRoute = async (context) => {
     return Response.json({ error: { code: "not_found", message: "Flashcard not found." } }, { status: 404 });
   }
 
-  const body = (await context.request.json()) as Partial<UpdateFlashcardCommand>;
+  let body: Partial<UpdateFlashcardCommand>;
+  try {
+    body = (await context.request.json()) as Partial<UpdateFlashcardCommand>;
+  } catch {
+    return Response.json({ error: { code: "validation_error", message: "Invalid request body." } }, { status: 400 });
+  }
   if (
     typeof body.question !== "string" ||
     !body.question.trim() ||
+    body.question.trim().length > MAX_LENGTH ||
     typeof body.answer !== "string" ||
-    !body.answer.trim()
+    !body.answer.trim() ||
+    body.answer.trim().length > MAX_LENGTH
   ) {
     return Response.json(
       { error: { code: "validation_error", message: "Question and answer must be between 1 and 2000 characters." } },
