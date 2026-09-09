@@ -3,7 +3,7 @@ project: "10xCards"
 version: 1
 status: draft
 created: 2026-09-08
-updated: 2026-09-09
+updated: 2026-09-10
 prd_version: 1
 main_goal: speed
 top_blocker: capacity
@@ -42,11 +42,10 @@ Professionals preparing for a certification exam want to use spaced repetition t
 | ID   | Change ID                        | Outcome (user can …)                                                              | Prerequisites | PRD refs                                | Status   |
 | ---- | --------------------------------- | ----------------------------------------------------------------------------------- | -------------- | ----------------------------------------- | -------- |
 | F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | in-progress |
-| F-02 | srs-library-and-review-schema     | (foundation) a spaced-repetition library is chosen and its review-state schema lands | F-01           | FR-009, FR-010                            | blocked  |
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | in-progress |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | in-progress |
 | S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | in-progress |
-| S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-02, S-02     | FR-009, FR-010                            | proposed |
+| S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-01, S-02     | FR-009, FR-010                            | blocked  |
 
 ## Streams
 
@@ -57,7 +56,7 @@ Navigation aid — groups items that share a Prerequisites chain. Canonical orde
 | A      | AI-generation core loop    | `F-01` → `S-02`           | First vertical slice the "speed" goal prioritizes; feeds Stream D, which now carries the north star.             |
 | B      | Manual fallback            | `S-03`                    | Off `F-01` (Stream A); runs parallel to `S-02`, no new external-integration risk.                                |
 | C      | Access                     | `S-01`                    | Already satisfied by baseline; independent of the data foundation.                                               |
-| D      | Spaced-repetition readiness | `F-02` → `S-04`          | Carries the north star (`S-04`); joins Stream A at `S-02` (needs real flashcards from the AI-generation loop); blocked until the spaced-repetition library is chosen. |
+| D      | Spaced-repetition readiness | `S-04`                    | Carries the north star (`S-04`); joins Stream A at `S-02` (needs real flashcards from the AI-generation loop) and depends directly on `F-01` for its review-state columns; blocked until the spaced-repetition library is chosen. |
 
 ## Baseline
 
@@ -78,27 +77,13 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Outcome:** (foundation) A minimal `flashcards` table (question, answer, owner `user_id`, timestamps) exists with per-user row-level-security policies, so every other slice has somewhere to persist and query flashcards scoped to their owner.
 - **Change ID:** minimal-flashcard-schema
 - **PRD refs:** Access Control, FR-003, FR-004, FR-005, FR-006, FR-007, FR-008
-- **Unlocks:** S-02, S-03, F-02
+- **Unlocks:** S-02, S-03, S-04
 - **Prerequisites:** —
 - **Parallel with:** S-01
 - **Blockers:** —
 - **Unknowns:** —
-- **Risk:** The codebase currently has no application tables at all — everything downstream is blocked until this lands, so it's sequenced first. Kept intentionally minimal (no spaced-repetition scheduling columns, no separate deck/tag entities) so it doesn't drift into "build the whole data layer" — F-02 extends the table with its own scheduling columns once the spaced-repetition library is chosen.
+- **Risk:** The codebase currently has no application tables at all — everything downstream is blocked until this lands, so it's sequenced first. Kept intentionally minimal (no spaced-repetition scheduling columns, no separate deck/tag entities) so it doesn't drift into "build the whole data layer" — S-04 extends the table with its own scheduling columns once the spaced-repetition library is chosen.
 - **Status:** in-progress
-
-### F-02: Spaced-repetition library chosen and review-state schema landed
-
-- **Outcome:** (foundation) A specific ready-made spaced-repetition library/algorithm is chosen and its scheduling data model (e.g. due date, ease factor, interval) is added to the `flashcards` table, so review-session logic has a concrete contract to build against.
-- **Change ID:** srs-library-and-review-schema
-- **PRD refs:** FR-009, FR-010
-- **Unlocks:** S-04
-- **Prerequisites:** F-01
-- **Parallel with:** S-02, S-03
-- **Blockers:** —
-- **Unknowns:**
-  - No specific ready-made spaced-repetition library or algorithm is named anywhere in the PRD or `tech-stack.md` — Non-Goals rules out building one from scratch, but the actual choice is still open. Owner: user. Block: yes.
-- **Risk:** Split out from F-01 so the base flashcards table doesn't wait on this decision, and so S-04 doesn't have to guess at a schema shape before the library is picked. Landing the schema here, once, avoids rework in S-04 itself.
-- **Status:** blocked
 
 ## Slices
 
@@ -142,26 +127,26 @@ Foundations below assume these are present and do NOT re-scaffold them.
 
 ### S-04: User can review due flashcards via spaced repetition
 
-- **Outcome:** user can start a review session where due flashcards are served by a spaced-repetition algorithm, and grade their recall to feed the scheduling
+- **Outcome:** user can start a review session where due flashcards — scheduled by a chosen spaced-repetition algorithm — are served, and grade their recall to update the schedule. Landing this includes picking a ready-made spaced-repetition library and adding its review-state columns (e.g. due date, ease factor, interval) to the `flashcards` table.
 - **Change ID:** spaced-repetition-review-session
 - **PRD refs:** FR-009, FR-010
-- **Prerequisites:** F-02, S-02
+- **Prerequisites:** F-01, S-02
 - **Parallel with:** S-03
 - **Blockers:** —
-- **Unknowns:** —
-- **Risk:** This is the north star — the spaced-repetition loop is the product's other core differentiator per the Vision recap, so proving it end-to-end validates the second half of the product's value proposition. It needs real flashcards to review, so it depends on S-02 (the primary creation path), and needs its schema already decided, so it depends on F-02 — which stays `blocked` until the spaced-repetition library is chosen. Sequencing S-04 after F-02 keeps the open decision visible on the foundation instead of buried in this slice.
-- **Status:** proposed
+- **Unknowns:**
+  - No specific ready-made spaced-repetition library or algorithm is named anywhere in the PRD or `tech-stack.md` — Non-Goals rules out building one from scratch, but the actual choice is still open, and this slice's review-state schema depends on it before the review-session logic can be built. Owner: user. Block: yes.
+- **Risk:** This is the north star — the spaced-repetition loop is the product's other core differentiator per the Vision recap, so proving it end-to-end validates the second half of the product's value proposition. It needs real flashcards to review, so it depends on S-02, and needs the `flashcards` table from F-01 to extend with scheduling columns. The library choice and its schema were previously split into a separate F-02 foundation, but since the schema only makes sense once the library is picked and nothing else consumed that foundation, it's folded directly into this slice — one less layer to track for the same blocking decision.
+- **Status:** blocked
 
 ## Backlog Handoff
 
 | Roadmap ID | Change ID                        | Suggested issue title                                         | Ready for `/10x-plan` | Notes                                       |
 | ---------- | --------------------------------- | ----------------------------------------------------------------- | ---------------------- | ---------------------------------------------- |
 | F-01       | minimal-flashcard-schema          | Add minimal flashcards table with per-user RLS                    | yes                     | Run `/10x-plan minimal-flashcard-schema`       |
-| F-02       | srs-library-and-review-schema     | Pick spaced-repetition library and land review-state schema       | no                      | Blocked on choosing a spaced-repetition library |
 | S-01       | account-signup-and-login          | Verify signup/login flow end-to-end in production                 | yes                     | Run `/10x-plan account-signup-and-login`       |
 | S-02       | ai-generated-flashcard-review     | AI-generated flashcard candidates with accept/edit/reject review  | no                      | Blocked on F-01                                |
 | S-03       | manual-flashcard-management       | Manual flashcard CRUD                                              | no                      | Blocked on F-01                                |
-| S-04       | spaced-repetition-review-session  | Spaced-repetition review session                                   | no                      | Blocked on F-02 and S-02                       |
+| S-04       | spaced-repetition-review-session  | Pick spaced-repetition library, land review-state schema, and ship the review session | no      | Blocked on choosing a spaced-repetition library; also needs F-01 and S-02 |
 
 ## Open Roadmap Questions
 
@@ -169,7 +154,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 
 ## Parked
 
-- **No custom spaced-repetition algorithm.** Why parked: PRD Non-Goals — building a competitive scheduling algorithm isn't the product's value proposition, so this milestone integrates a ready-made one instead (see F-02's blocking Unknown for the library choice).
+- **No custom spaced-repetition algorithm.** Why parked: PRD Non-Goals — building a competitive scheduling algorithm isn't the product's value proposition, so this milestone integrates a ready-made one instead (see S-04's blocking Unknown for the library choice).
 - **No import of non-text formats (PDF, DOCX, etc.).** Why parked: PRD Non-Goals — input is copy-pasted text only for the MVP.
 - **No sharing or collaboration between users.** Why parked: PRD Non-Goals — flashcards are single-tenant and single-owner.
 - **No mobile app or third-party platform integrations.** Why parked: PRD Non-Goals — web only for the MVP.
