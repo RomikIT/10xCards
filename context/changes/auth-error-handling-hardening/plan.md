@@ -133,10 +133,10 @@ Not applicable — no schema or data changes, no deployment-order dependency (th
 
 #### Automated
 
-- [x] 1.1 Lint passes: `npm run lint`
-- [x] 1.2 Build succeeds: `npm run build`
+- [x] 1.1 Lint passes: `npm run lint` — d15ae3b
+- [x] 1.2 Build succeeds: `npm run build` — d15ae3b
 
 #### Manual
 
-- [x] 1.3 Code review confirms all four call sites route through `callSupabaseAuth` with unchanged happy-path behavior
-- [x] 1.4 Manual signup → signin → dashboard → signout flow re-tested against `npm run dev`, confirms no regression
+- [x] 1.3 Code review confirms all four call sites route through `callSupabaseAuth` with unchanged happy-path behavior — d15ae3b
+- [x] 1.4 Manual signup → signin → dashboard → signout flow re-tested against `npm run dev`, confirms no regression — d15ae3b
