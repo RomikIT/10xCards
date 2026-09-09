@@ -21,15 +21,19 @@ create index flashcards_user_id_idx on public.flashcards (user_id);
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
+set search_path = ''
 as $$
 begin
+  if tg_op = 'INSERT' then
+    new.created_at = now();
+  end if;
   new.updated_at = now();
   return new;
 end;
 $$;
 
 create trigger flashcards_set_updated_at
-  before update on public.flashcards
+  before insert or update on public.flashcards
   for each row
   execute function public.set_updated_at();
 

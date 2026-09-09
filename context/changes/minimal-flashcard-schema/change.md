@@ -1,7 +1,7 @@
 ---
 change_id: minimal-flashcard-schema
 title: Minimal flashcards table with per-user RLS policies
-status: implemented
+status: impl_reviewed
 created: 2026-09-09
 updated: 2026-09-09
 archived_at: null
