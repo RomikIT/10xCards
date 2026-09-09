@@ -41,7 +41,7 @@ export const POST: APIRoute = async (context) => {
     );
   }
 
-  const result = await generateFlashcardCandidates(body.text);
+  const result = await generateFlashcardCandidates(body.text.trim());
 
   if ("error" in result) {
     return Response.json({ error: result.error }, { status: 502 });

@@ -7,6 +7,7 @@ const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_MODEL = "openai/gpt-4o-mini";
 const MAX_CANDIDATES = 20;
 const MAX_FIELD_LENGTH = 2000;
+const REQUEST_TIMEOUT_MS = 20000;
 
 const GENERATION_FAILED_ERROR: ServiceError = {
   code: "generation_failed",
@@ -80,9 +81,10 @@ export async function generateFlashcardCandidates(
         ],
         response_format: RESPONSE_JSON_SCHEMA,
       }),
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
   } catch (error) {
-    console.error("[ai-flashcard-generation.service] network error", error);
+    console.error("[ai-flashcard-generation.service] network error or timeout", error);
     return { error: GENERATION_FAILED_ERROR };
   }
 
