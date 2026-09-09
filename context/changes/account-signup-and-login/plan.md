@@ -112,15 +112,15 @@ Not applicable — no schema or data changes.
 
 #### Automated
 
-- [x] 1.1 Lint passes: `npm run lint`
-- [x] 1.2 Build succeeds: `npm run build`
+- [x] 1.1 Lint passes: `npm run lint` — 93f5e74
+- [x] 1.2 Build succeeds: `npm run build` — 93f5e74
 
 #### Manual
 
-- [x] 1.3 Signup reachability verified locally (automated): signup request redirects to /auth/confirm-email
-- [x] 1.4 Wrong password shows clear error, no crash (automated, local)
-- [x] 1.5 Signin before confirming email behaves sanely (automated, local)
-- [x] 1.6 Duplicate signup doesn't crash or contradict Supabase anti-enumeration defaults (automated, local)
-- [x] 1.7 Any config/secret-level regression found is fixed inline and re-run to confirm; any code-level regression is left unresolved here and handed off to a new change
-- [x] 1.8 Test accounts created during local automated verification are deleted from the Supabase dashboard
-- [x] 1.9 OUTSTANDING: full production happy-path (confirm-email click → signin → dashboard → signout) and Site URL/redirect correctness verified on the live Worker
+- [x] 1.3 Signup reachability verified locally (automated): signup request redirects to /auth/confirm-email — 93f5e74
+- [x] 1.4 Wrong password shows clear error, no crash (automated, local) — 93f5e74
+- [x] 1.5 Signin before confirming email behaves sanely (automated, local) — 93f5e74
+- [x] 1.6 Duplicate signup doesn't crash or contradict Supabase anti-enumeration defaults (automated, local) — 93f5e74
+- [x] 1.7 Any config/secret-level regression found is fixed inline and re-run to confirm; any code-level regression is left unresolved here and handed off to a new change — 93f5e74
+- [x] 1.8 Test accounts created during local automated verification are deleted from the Supabase dashboard — 93f5e74
+- [x] 1.9 OUTSTANDING: full production happy-path (confirm-email click → signin → dashboard → signout) and Site URL/redirect correctness verified on the live Worker — 93f5e74
