@@ -1,3 +1,3 @@
--- Intentionally empty: this project has no custom tables yet, only Supabase
--- Auth's built-in auth.users table (see README.md's Supabase Configuration
--- section). Referenced by supabase/config.toml's db.seed.sql_paths.
+-- Intentionally empty: the flashcards table (supabase/migrations/) has no
+-- fixture data yet. See README.md's Supabase Configuration section.
+-- Referenced by supabase/config.toml's db.seed.sql_paths.
