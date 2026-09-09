@@ -1,13 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { CreateFlashcardCommand, Flashcard, UpdateFlashcardCommand } from "@/types";
+import type { CreateFlashcardCommand, Flashcard, ServiceError, UpdateFlashcardCommand } from "@/types";
 
 const VALIDATION_ERROR_MESSAGE = "Question and answer must be between 1 and 2000 characters.";
 const INTERNAL_ERROR_MESSAGE = "Something went wrong. Please try again.";
-
-export interface ServiceError {
-  code: string;
-  message: string;
-}
 
 function mapError(error: { code?: string; message?: string }): ServiceError {
   if (error.code === "23514") {

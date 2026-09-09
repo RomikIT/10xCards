@@ -16,3 +16,17 @@ export interface UpdateFlashcardCommand {
   question: string;
   answer: string;
 }
+
+export interface ServiceError {
+  code: string;
+  message: string;
+}
+
+export interface FlashcardCandidate {
+  question: string;
+  answer: string;
+}
+
+export interface GenerateFlashcardsCommand {
+  text: string;
+}
