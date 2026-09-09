@@ -248,17 +248,17 @@ Not applicable — no schema changes; this plan only adds application code on to
 
 #### Automated
 
-- [x] 2.1 Lint passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Lint passes: `npm run lint` — 80ee4fb
+- [x] 2.2 Build succeeds: `npm run build` — 80ee4fb
 
 #### Manual
 
-- [x] 2.3 Signed-out visit to /flashcards redirects to signin
-- [x] 2.4 Empty state renders with zero flashcards
-- [x] 2.5 Create flow works without full page reload
-- [x] 2.6 Client-side length validation blocks out-of-range submissions
-- [x] 2.7 Inline edit (Save/Cancel) works correctly
-- [x] 2.8 Delete confirmation dialog works correctly
-- [x] 2.9 Dashboard link to /flashcards works
-- [x] 2.10 Simulated create/edit/delete failure shows inline error, clears on next success
-- [x] 2.11 Double-click on Save/Confirm-delete sends exactly one request; button shows disabled/pending state meanwhile
+- [x] 2.3 Signed-out visit to /flashcards redirects to signin — 80ee4fb
+- [x] 2.4 Empty state renders with zero flashcards — 80ee4fb
+- [x] 2.5 Create flow works without full page reload — 80ee4fb
+- [x] 2.6 Client-side length validation blocks out-of-range submissions — 80ee4fb
+- [x] 2.7 Inline edit (Save/Cancel) works correctly — 80ee4fb
+- [x] 2.8 Delete confirmation dialog works correctly — 80ee4fb
+- [x] 2.9 Dashboard link to /flashcards works — 80ee4fb
+- [x] 2.10 Simulated create/edit/delete failure shows inline error, clears on next success — 80ee4fb
+- [x] 2.11 Double-click on Save/Confirm-delete sends exactly one request; button shows disabled/pending state meanwhile — 80ee4fb
