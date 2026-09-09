@@ -3,7 +3,7 @@ project: "10xCards"
 version: 1
 status: draft
 created: 2026-09-08
-updated: 2026-09-08
+updated: 2026-09-09
 prd_version: 1
 main_goal: speed
 top_blocker: capacity
@@ -33,7 +33,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 
 ## North star
 
-**S-02: User converts pasted study text into AI-generated, reviewable flashcards** — the first user-visible flow that proves AI-assisted generation is good enough for users to actually accept and rely on, which is exactly what the PRD's primary success metrics (75% AI-card acceptance, 75% of cards created via AI) measure.
+**S-04: User can review due flashcards via spaced repetition** — the spaced-repetition engine is the other half of the product's value proposition (per the Vision recap: "a real spaced-repetition engine paired with AI-assisted card generation"), so proving the full review-and-grade loop actually works end-to-end is the validation this roadmap now treats as most load-bearing.
 
 > North star, here, means the smallest end-to-end slice whose successful delivery would prove the product's value actually works — placed as early as its Prerequisites allow, because every other slice matters less if this one fails. This gloss applies for the rest of the document; the term isn't re-defined below.
 
@@ -41,9 +41,9 @@ Professionals preparing for a certification exam want to use spaced repetition t
 
 | ID   | Change ID                        | Outcome (user can …)                                                              | Prerequisites | PRD refs                                | Status   |
 | ---- | --------------------------------- | ----------------------------------------------------------------------------------- | -------------- | ----------------------------------------- | -------- |
-| F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | ready    |
+| F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | in-progress |
 | F-02 | srs-library-and-review-schema     | (foundation) a spaced-repetition library is chosen and its review-state schema lands | F-01           | FR-009, FR-010                            | blocked  |
-| S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | ready    |
+| S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | in-progress |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | proposed |
 | S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | proposed |
 | S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-02, S-02     | FR-009, FR-010                            | proposed |
@@ -54,10 +54,10 @@ Navigation aid — groups items that share a Prerequisites chain. Canonical orde
 
 | Stream | Theme                     | Chain                    | Note                                                                                                             |
 | ------ | -------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| A      | AI-generation core loop    | `F-01` → `S-02`           | Carries the north star — the line of work the "speed" goal prioritizes first.                                   |
+| A      | AI-generation core loop    | `F-01` → `S-02`           | First vertical slice the "speed" goal prioritizes; feeds Stream D, which now carries the north star.             |
 | B      | Manual fallback            | `S-03`                    | Off `F-01` (Stream A); runs parallel to `S-02`, no new external-integration risk.                                |
 | C      | Access                     | `S-01`                    | Already satisfied by baseline; independent of the data foundation.                                               |
-| D      | Spaced-repetition readiness | `F-02` → `S-04`          | Joins Stream A at `S-02` (needs real flashcards from the AI-generation loop); blocked until the spaced-repetition library is chosen. |
+| D      | Spaced-repetition readiness | `F-02` → `S-04`          | Carries the north star (`S-04`); joins Stream A at `S-02` (needs real flashcards from the AI-generation loop); blocked until the spaced-repetition library is chosen. |
 
 ## Baseline
 
@@ -84,7 +84,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** The codebase currently has no application tables at all — everything downstream is blocked until this lands, so it's sequenced first. Kept intentionally minimal (no spaced-repetition scheduling columns, no separate deck/tag entities) so it doesn't drift into "build the whole data layer" — F-02 extends the table with its own scheduling columns once the spaced-repetition library is chosen.
-- **Status:** ready
+- **Status:** in-progress
 
 ### F-02: Spaced-repetition library chosen and review-state schema landed
 
@@ -112,7 +112,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Already fully implemented per the auto-researched baseline (working signup/signin/signout endpoints and pages, middleware-enforced route protection on `/dashboard`). This slice exists to close PRD-refs coverage and to re-verify the signup → confirm-email → login path end-to-end against the deployed instance, per the recorded lesson that Supabase's default Auth Site URL isn't updated automatically on deploy.
-- **Status:** ready
+- **Status:** in-progress
 
 ### S-02: User converts pasted study text into AI-generated, reviewable flashcards
 
@@ -125,7 +125,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Unknowns:**
   - Which prompt/extraction approach actually yields flashcards good enough to hit the 75% acceptance target — needs at least one round of testing against real pasted study text. Owner: user. Block: no.
   - The OpenRouter API key must be provisioned as a Worker secret (`wrangler secret put`) before this reaches production — easy to skip silently, per `infrastructure.md`'s risk register. Owner: user. Block: no.
-- **Risk:** This is the north star — the only slice with a new external AI-provider integration, and the one the PRD's primary success metrics measure directly. Sequenced immediately after the data foundation because the "speed" goal means core value comes before polish, not after.
+- **Risk:** The only slice with a new external AI-provider integration, and the one the PRD's primary success metrics measure directly. Sequenced immediately after the data foundation because the "speed" goal means core value comes before polish, not after — and because it's the prerequisite that unlocks the north star, S-04.
 - **Status:** proposed
 
 ### S-03: User can manually create, view, edit, and delete flashcards
@@ -149,7 +149,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Parallel with:** S-03
 - **Blockers:** —
 - **Unknowns:** —
-- **Risk:** Needs real flashcards to review, so it depends on S-02 (the primary creation path), and needs its schema already decided, so it depends on F-02 — which stays `blocked` until the spaced-repetition library is chosen. Sequencing S-04 after F-02 keeps the open decision visible on the foundation instead of buried in this slice.
+- **Risk:** This is the north star — the spaced-repetition loop is the product's other core differentiator per the Vision recap, so proving it end-to-end validates the second half of the product's value proposition. It needs real flashcards to review, so it depends on S-02 (the primary creation path), and needs its schema already decided, so it depends on F-02 — which stays `blocked` until the spaced-repetition library is chosen. Sequencing S-04 after F-02 keeps the open decision visible on the foundation instead of buried in this slice.
 - **Status:** proposed
 
 ## Backlog Handoff
