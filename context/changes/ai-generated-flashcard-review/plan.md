@@ -252,7 +252,7 @@ None — no schema changes.
 - [x] 1.8 Confirm OPENROUTER_MODEL resolves on OpenRouter's catalog and supports response_format: json_schema — fec3cdb
 - [x] 1.9 OPENROUTER_API_KEY added to local .dev.vars before testing npm run dev — fec3cdb
 - [x] 1.10 Missing-key banner shows on any page when OPENROUTER_API_KEY is unset — fec3cdb
-- [ ] 1.11 wrangler secret put OPENROUTER_API_KEY run before production deploy
+- [x] 1.11 wrangler secret put OPENROUTER_API_KEY run before production deploy — b3e98dc
 
 ### Phase 2: Frontend — generation page and candidate review
 
