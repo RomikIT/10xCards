@@ -258,16 +258,16 @@ None — no schema changes.
 
 #### Automated
 
-- [x] 2.1 Type checking passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint` — d556f37
+- [x] 2.2 Build succeeds: `npm run build` — d556f37
 
 #### Manual
 
-- [x] 2.3 Generate shows loading state then candidate list
-- [x] 2.4 Accepting a candidate as-is saves it and removes it from the review list
-- [x] 2.5 Editing before accepting saves the edited text, not the original
-- [x] 2.6 Rejecting removes the candidate with no network request
-- [x] 2.7 Unusable input (no extractable facts) shows the "no flashcards generated" message
-- [x] 2.8 Empty/too-short input shows inline validation, no API call
-- [x] 2.9 Too-long input shows inline validation, no API call
-- [x] 2.10 Generation failure shows generic error, text preserved, retry works
+- [x] 2.3 Generate shows loading state then candidate list — d556f37
+- [x] 2.4 Accepting a candidate as-is saves it and removes it from the review list — d556f37
+- [x] 2.5 Editing before accepting saves the edited text, not the original — d556f37
+- [x] 2.6 Rejecting removes the candidate with no network request — d556f37
+- [x] 2.7 Unusable input (no extractable facts) shows the "no flashcards generated" message — d556f37
+- [x] 2.8 Empty/too-short input shows inline validation, no API call — d556f37
+- [x] 2.9 Too-long input shows inline validation, no API call — d556f37
+- [x] 2.10 Generation failure shows generic error, text preserved, retry works — d556f37

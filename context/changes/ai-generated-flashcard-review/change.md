@@ -1,7 +1,7 @@
 ---
 change_id: ai-generated-flashcard-review
 title: Convert pasted study text into AI-generated, reviewable flashcards
-status: implementing
+status: implemented
 created: 2026-09-09
 updated: 2026-09-09
 archived_at: null
