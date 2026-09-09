@@ -27,7 +27,10 @@ if (supabase) {
         <h1 class="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
           Your Flashcards
         </h1>
-        <a href="/dashboard" class="text-sm text-blue-100/70 hover:text-white">← Dashboard</a>
+        <div class="flex items-center gap-4">
+          <a href="/flashcards/generate" class="text-sm text-blue-100/70 hover:text-white">Generate with AI →</a>
+          <a href="/dashboard" class="text-sm text-blue-100/70 hover:text-white">← Dashboard</a>
+        </div>
       </div>
       <FlashcardManager client:load initialFlashcards={initialFlashcards} initialError={initialError} />
     </div>

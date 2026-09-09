@@ -239,35 +239,35 @@ None — no schema changes.
 
 #### Automated
 
-- [x] 1.1 Type checking passes: `npm run lint`
-- [x] 1.2 Build succeeds: `npm run build`
+- [x] 1.1 Type checking passes: `npm run lint` — fec3cdb
+- [x] 1.2 Build succeeds: `npm run build` — fec3cdb
 
 #### Manual
 
-- [x] 1.3 Unauthenticated request to `/api/flashcards/generate` returns 401
-- [x] 1.4 Empty/too-short text returns 400 validation_error
-- [x] 1.5 Too-long text (>10,000 chars) returns 400 validation_error
-- [x] 1.6 Valid text returns 200 with plausible candidates
-- [x] 1.7 Broken API key returns 502 generation_failed, not a silent 500/hang
-- [x] 1.8 Confirm OPENROUTER_MODEL resolves on OpenRouter's catalog and supports response_format: json_schema
-- [x] 1.9 OPENROUTER_API_KEY added to local .dev.vars before testing npm run dev
-- [x] 1.10 Missing-key banner shows on any page when OPENROUTER_API_KEY is unset
+- [x] 1.3 Unauthenticated request to `/api/flashcards/generate` returns 401 — fec3cdb
+- [x] 1.4 Empty/too-short text returns 400 validation_error — fec3cdb
+- [x] 1.5 Too-long text (>10,000 chars) returns 400 validation_error — fec3cdb
+- [x] 1.6 Valid text returns 200 with plausible candidates — fec3cdb
+- [x] 1.7 Broken API key returns 502 generation_failed, not a silent 500/hang — fec3cdb
+- [x] 1.8 Confirm OPENROUTER_MODEL resolves on OpenRouter's catalog and supports response_format: json_schema — fec3cdb
+- [x] 1.9 OPENROUTER_API_KEY added to local .dev.vars before testing npm run dev — fec3cdb
+- [x] 1.10 Missing-key banner shows on any page when OPENROUTER_API_KEY is unset — fec3cdb
 - [ ] 1.11 wrangler secret put OPENROUTER_API_KEY run before production deploy
 
 ### Phase 2: Frontend — generation page and candidate review
 
 #### Automated
 
-- [ ] 2.1 Type checking passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Type checking passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 2.3 Generate shows loading state then candidate list
-- [ ] 2.4 Accepting a candidate as-is saves it and removes it from the review list
-- [ ] 2.5 Editing before accepting saves the edited text, not the original
-- [ ] 2.6 Rejecting removes the candidate with no network request
-- [ ] 2.7 Unusable input (no extractable facts) shows the "no flashcards generated" message
-- [ ] 2.8 Empty/too-short input shows inline validation, no API call
-- [ ] 2.9 Too-long input shows inline validation, no API call
-- [ ] 2.10 Generation failure shows generic error, text preserved, retry works
+- [x] 2.3 Generate shows loading state then candidate list
+- [x] 2.4 Accepting a candidate as-is saves it and removes it from the review list
+- [x] 2.5 Editing before accepting saves the edited text, not the original
+- [x] 2.6 Rejecting removes the candidate with no network request
+- [x] 2.7 Unusable input (no extractable facts) shows the "no flashcards generated" message
+- [x] 2.8 Empty/too-short input shows inline validation, no API call
+- [x] 2.9 Too-long input shows inline validation, no API call
+- [x] 2.10 Generation failure shows generic error, text preserved, retry works
