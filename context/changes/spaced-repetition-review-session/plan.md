@@ -275,26 +275,26 @@ The new migration is purely additive (`ALTER TABLE ... ADD COLUMN ... DEFAULT ..
 
 #### Automated
 
-- [x] 3.1 Type checking passes
-- [x] 3.2 Build succeeds
+- [x] 3.1 Type checking passes — 9abe77c
+- [x] 3.2 Build succeeds — 9abe77c
 
 #### Manual
 
-- [x] 3.3 Due-queue endpoint returns only cards with due <= now
-- [x] 3.4 Grading endpoint updates due/stability/state/reps for each of the 4 ratings
-- [x] 3.5 Grading a nonexistent id returns 404; unauthenticated request returns 401
+- [x] 3.3 Due-queue endpoint returns only cards with due <= now — 9abe77c
+- [x] 3.4 Grading endpoint updates due/stability/state/reps for each of the 4 ratings — 9abe77c
+- [x] 3.5 Grading a nonexistent id returns 404; unauthenticated request returns 401 — 9abe77c
 
 ### Phase 4: Review session UI
 
 #### Automated
 
-- [ ] 4.1 Type checking passes
-- [ ] 4.2 Build succeeds
+- [x] 4.1 Type checking passes
+- [x] 4.2 Build succeeds
 
 #### Manual
 
-- [ ] 4.3 Review page shows question, hides answer until revealed, shows all 4 rating buttons after reveal
-- [ ] 4.4 Grading each rating advances the queue without a full page reload
-- [ ] 4.5 Grading the last card shows the empty-queue state with a working link back to /flashcards
-- [ ] 4.6 Visiting the review page with zero due cards shows the empty-queue state immediately
-- [ ] 4.7 Unauthenticated access to /flashcards/review redirects to /auth/signin
+- [x] 4.3 Review page shows question, hides answer until revealed, shows all 4 rating buttons after reveal
+- [x] 4.4 Grading each rating advances the queue without a full page reload
+- [x] 4.5 Grading the last card shows the empty-queue state with a working link back to /flashcards
+- [x] 4.6 Visiting the review page with zero due cards shows the empty-queue state immediately
+- [x] 4.7 Unauthenticated access to /flashcards/review redirects to /auth/signin

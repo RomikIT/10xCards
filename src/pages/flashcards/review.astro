@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { listDueFlashcards } from "@/lib/services/review.service";
+import { ReviewSession } from "@/components/flashcards/ReviewSession";
+import type { Flashcard } from "@/types";
+
+const supabase = createClient(Astro.request.headers, Astro.cookies);
+
+let initialQueue: Flashcard[] = [];
+let initialError: string | null = null;
+
+if (supabase) {
+  const result = await listDueFlashcards(supabase);
+  if ("data" in result) {
+    initialQueue = result.data;
+  } else {
+    initialError = result.error.message;
+  }
+}
+---
+
+<Layout title="Review Flashcards">
+  <div class="bg-cosmic min-h-screen p-4 py-12">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-6 flex items-center justify-between">
+        <h1 class="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-3xl font-bold text-transparent">
+          Review Flashcards
+        </h1>
+        <a href="/flashcards" class="text-sm text-blue-100/70 hover:text-white">← Flashcards</a>
+      </div>
+      <ReviewSession client:load initialQueue={initialQueue} initialError={initialError} />
+    </div>
+  </div>
+</Layout>
