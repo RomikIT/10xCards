@@ -72,12 +72,12 @@ Each row is a discrete rollout phase that will open its own change folder
 via `/10x-new`. Status moves left-to-right through the values below; the
 orchestrator updates Status as artifacts appear on disk.
 
-| #   | Phase name                                 | Goal (one line)                                                   | Risks covered | Test types         | Status      | Change folder                                              |
-| --- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- | ------------------ | ----------- | ---------------------------------------------------------- |
-| 1   | Bootstrap runner + AI review critical path | Stand up Vitest and defend Risk #1+#2 at the cheapest layer       | #1, #2        | unit + integration | complete    | context/changes/testing-bootstrap-ai-review-critical-path/ |
-| 2   | Authorization and data-integrity coverage  | Lock cross-user access boundaries and FSRS grading correctness    | #3, #4        | integration        | not started | —                                                          |
-| 3   | Auth resilience regression guard           | Ensure existing auth-exception hardening doesn't silently regress | #5            | unit               | not started | —                                                          |
-| 4   | Quality-gates wiring                       | Wire lint+typecheck+unit/integration as required CI gates         | cross-cutting | gates              | not started | —                                                          |
+| #   | Phase name                                 | Goal (one line)                                                   | Risks covered | Test types         | Status        | Change folder                                                  |
+| --- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- | ------------------ | ------------- | -------------------------------------------------------------- |
+| 1   | Bootstrap runner + AI review critical path | Stand up Vitest and defend Risk #1+#2 at the cheapest layer       | #1, #2        | unit + integration | complete      | context/changes/testing-bootstrap-ai-review-critical-path/     |
+| 2   | Authorization and data-integrity coverage  | Lock cross-user access boundaries and FSRS grading correctness    | #3, #4        | integration        | change opened | context/changes/testing-authorization-data-integrity-coverage/ |
+| 3   | Auth resilience regression guard           | Ensure existing auth-exception hardening doesn't silently regress | #5            | unit               | not started   | —                                                              |
+| 4   | Quality-gates wiring                       | Wire lint+typecheck+unit/integration as required CI gates         | cross-cutting | gates              | not started   | —                                                              |
 
 **Status vocabulary** (fixed — parser literals): `not started` → `change opened` → `researched` → `planned` → `implementing` → `complete`.
 
