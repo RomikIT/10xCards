@@ -61,15 +61,36 @@ export async function createTwoRealUsers(): Promise<RealSupabaseUsers> {
   const url = requiredEnv("SUPABASE_URL");
   const anonKey = requiredEnv("SUPABASE_KEY");
   const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
-
-  const [userA, userB] = await Promise.all([signUpRealUser(url, anonKey), signUpRealUser(url, anonKey)]);
   const adminClient = createClient(url, serviceRoleKey);
+
+  const results = await Promise.allSettled([signUpRealUser(url, anonKey), signUpRealUser(url, anonKey)]);
+  const succeeded = results
+    .filter((result): result is PromiseFulfilledResult<RealUser> => result.status === "fulfilled")
+    .map((result) => result.value);
+
+  if (results.some((result) => result.status === "rejected")) {
+    // One signup succeeded before the other failed — clean it up now so a
+    // partial failure doesn't leave an orphaned auth user in local Supabase.
+    await Promise.allSettled(succeeded.map((user) => adminClient.auth.admin.deleteUser(user.id)));
+    const rejection = results.find((result): result is PromiseRejectedResult => result.status === "rejected");
+    throw rejection?.reason instanceof Error ? rejection.reason : new Error(String(rejection?.reason));
+  }
+
+  const [userA, userB] = succeeded;
 
   return {
     userA,
     userB,
     cleanup: async () => {
-      await Promise.all([adminClient.auth.admin.deleteUser(userA.id), adminClient.auth.admin.deleteUser(userB.id)]);
+      const outcomes = await Promise.allSettled([
+        adminClient.auth.admin.deleteUser(userA.id),
+        adminClient.auth.admin.deleteUser(userB.id),
+      ]);
+      for (const outcome of outcomes) {
+        if (outcome.status === "rejected") {
+          console.warn("[real-supabase] cleanup failed to delete a test user:", outcome.reason);
+        }
+      }
     },
   };
 }

@@ -1,7 +1,7 @@
 ---
 change_id: testing-authorization-data-integrity-coverage
 title: Cross-user authorization and FSRS grading integration tests
-status: implemented
+status: impl_reviewed
 created: 2026-09-11
 updated: 2026-09-11
 archived_at: null
