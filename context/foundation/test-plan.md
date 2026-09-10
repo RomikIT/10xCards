@@ -19,9 +19,9 @@ Tests follow three non-negotiable principles for this project:
 2. **User concerns are first-class evidence.** Risks anchored in "<the
    team is worried about X, and the failure would surface somewhere in
    <area>>" carry the same weight as PRD lines or hot-spot data.
-3. **Risks are scenarios, not code locations.** This plan documents *what
-   could fail* and *why we believe it's likely* — drawn from documents,
-   interview, and codebase *signal* (churn, structure, test base). It does
+3. **Risks are scenarios, not code locations.** This plan documents _what
+   could fail_ and _why we believe it's likely_ — drawn from documents,
+   interview, and codebase _signal_ (churn, structure, test base). It does
    NOT claim to know which line owns the failure. That knowledge is
    produced by `/10x-research` during each rollout phase. If the plan and
    research disagree about where the failure lives, research is the
@@ -33,38 +33,38 @@ Hot-spot scope used for likelihood weighting: `src/`, `supabase/migrations/` (ex
 
 The top failure scenarios this project must protect against, ordered by
 risk = impact × likelihood. Risks are failure scenarios in user / business
-terms, not test names. The Source column cites the *evidence that surfaced
-this risk* — never a specific file as "where the failure lives" (that is
+terms, not test names. The Source column cites the _evidence that surfaced
+this risk_ — never a specific file as "where the failure lives" (that is
 research's job, see §1 principle #3).
 
-| # | Risk (failure scenario) | Impact | Likelihood | Source (evidence — not anchor) |
-|---|---|---|---|---|
-| 1 | User accepts/edits/rejects an AI-generated candidate, and the server persists something other than what they saw (original instead of edit, a duplicate from a double-click, or a rejected candidate saved anyway) | High | High | interview Q3 ("generation and deck management flow" — area changed with least confidence) \| PRD US-01 acceptance criteria \| archive/ai-generated-flashcard-review/plan.md |
-| 2 | OpenRouter is unavailable, returns an invalid key error, or returns malformed data, and the user sees a hang or a raw error instead of a clear, actionable message | High | High | interview Q1 (external-integration outage is the top-named worry) \| PRD NFR ("acknowledgement... continuous visible progress during AI-generation") \| infrastructure.md risk register \| archive/ai-generated-flashcard-review/plan.md |
-| 3 | One authenticated user reads, edits, or deletes another user's flashcard through the API, despite per-user RLS policies | High | Medium | PRD Access Control ("no cross-user visibility or sharing") \| archive/manual-flashcard-management/plan.md (RLS insert/not-found mapping) \| abuse/security lens (auth + user input present) |
-| 4 | Grading a review corrupts or mis-transitions a flashcard's FSRS scheduling state (due/stability/state/reps), violating the product's data-integrity guardrail | High | Medium | PRD guardrail ("flashcard data must never be lost or corrupted") \| archive/spaced-repetition-review-session/plan.md (DB row ↔ Card mapping) |
-| 5 | An unhandled exception from the Supabase Auth SDK (signup/signin/signout/middleware) regresses over time despite prior hardening, surfacing a raw 500 instead of a friendly error | Medium | Medium | context/changes/auth-error-handling-hardening/ (prior finding + fix) \| infrastructure.md risk register |
+| #   | Risk (failure scenario)                                                                                                                                                                                            | Impact | Likelihood | Source (evidence — not anchor)                                                                                                                                                                                                           |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | User accepts/edits/rejects an AI-generated candidate, and the server persists something other than what they saw (original instead of edit, a duplicate from a double-click, or a rejected candidate saved anyway) | High   | High       | interview Q3 ("generation and deck management flow" — area changed with least confidence) \| PRD US-01 acceptance criteria \| archive/ai-generated-flashcard-review/plan.md                                                              |
+| 2   | OpenRouter is unavailable, returns an invalid key error, or returns malformed data, and the user sees a hang or a raw error instead of a clear, actionable message                                                 | High   | High       | interview Q1 (external-integration outage is the top-named worry) \| PRD NFR ("acknowledgement... continuous visible progress during AI-generation") \| infrastructure.md risk register \| archive/ai-generated-flashcard-review/plan.md |
+| 3   | One authenticated user reads, edits, or deletes another user's flashcard through the API, despite per-user RLS policies                                                                                            | High   | Medium     | PRD Access Control ("no cross-user visibility or sharing") \| archive/manual-flashcard-management/plan.md (RLS insert/not-found mapping) \| abuse/security lens (auth + user input present)                                              |
+| 4   | Grading a review corrupts or mis-transitions a flashcard's FSRS scheduling state (due/stability/state/reps), violating the product's data-integrity guardrail                                                      | High   | Medium     | PRD guardrail ("flashcard data must never be lost or corrupted") \| archive/spaced-repetition-review-session/plan.md (DB row ↔ Card mapping)                                                                                             |
+| 5   | An unhandled exception from the Supabase Auth SDK (signup/signin/signout/middleware) regresses over time despite prior hardening, surfacing a raw 500 instead of a friendly error                                  | Medium | Medium     | context/changes/auth-error-handling-hardening/ (prior finding + fix) \| infrastructure.md risk register                                                                                                                                  |
 
 **Impact × Likelihood rubric.** Score both axes on a coarse High / Medium /
 Low scale so two readers agree on the same row.
 
-| Rating | Impact | Likelihood |
-|--------|--------|------------|
-| High   | user loses access, data, or money; failure is publicly visible | area changes weekly, or we have already been burned here |
-| Medium | feature degrades, a workaround exists, only some users affected | touched occasionally, has been a source of bugs |
-| Low    | cosmetic, easily reverted, no data effect | stable code, rarely touched |
+| Rating | Impact                                                          | Likelihood                                               |
+| ------ | --------------------------------------------------------------- | -------------------------------------------------------- |
+| High   | user loses access, data, or money; failure is publicly visible  | area changes weekly, or we have already been burned here |
+| Medium | feature degrades, a workaround exists, only some users affected | touched occasionally, has been a source of bugs          |
+| Low    | cosmetic, easily reverted, no data effect                       | stable code, rarely touched                              |
 
-**Challenger findings:** a candidate risk about study-text/AI-response content leaking beyond the scope of a single request (PRD NFR on non-retention) was considered and dropped — no logging or persistence mechanism exists anywhere in the codebase that could leak it, so the risk currently describes a safeguard that would need to be *added* first, not a defect in what exists. Re-evaluate if logging/observability is introduced.
+**Challenger findings:** a candidate risk about study-text/AI-response content leaking beyond the scope of a single request (PRD NFR on non-retention) was considered and dropped — no logging or persistence mechanism exists anywhere in the codebase that could leak it, so the risk currently describes a safeguard that would need to be _added_ first, not a defect in what exists. Re-evaluate if logging/observability is introduced.
 
 ### Risk Response Guidance
 
-| Risk | What would prove protection | Must challenge | Context `/10x-research` must ground | Likely cheapest layer | Anti-pattern to avoid |
-|------|-----------------------------|----------------|--------------------------------------|-----------------------|-----------------------|
-| #1 | Accepting a candidate as-is saves exactly what was shown; editing before accepting saves the edit, not the original; rejecting never triggers a network call; a double-click on Accept/Reject doesn't produce a duplicate save | Removal from the client-side list is not proof the server-side save actually succeeded or matched what was shown | `CandidateCard`'s local state flow, the `POST /api/flashcards` contract, whether any server-side duplicate protection exists | integration (component + mocked fetch boundary, or API-level) | asserting against the component's internal state instead of the actually-saved flashcard/network payload (oracle problem) |
-| #2 | When OpenRouter is unavailable, returns an invalid-key error, or returns malformed data, the user sees a clear message — not a hang, not a raw 500, not a silent empty result presented as "nothing to review" | A 200 response from OpenRouter does not by itself mean valid candidates; "no extractable facts" and "response failed to parse" must be distinguishable | The generate route's response contract, the `generation_failed` vs `validation_error` error-code taxonomy, interaction with the config-status banner | unit/integration (mock the OpenRouter HTTP boundary) | mocking away the JSON-schema parsing/validation logic itself (testing only the happy-path parse) |
-| #3 | A second, different authenticated user can never read, update, or delete the first user's flashcard through the API, even when passing the correct row id | DB-level RLS alone is not sufficient proof — the manual-flashcard-management plan already found RLS returns an empty result array (not an error) for someone else's row, which the route layer must translate into 404 | The exact not-found mapping per route, and whether newer routes (e.g. review grading) got the same treatment as the original CRUD routes | integration (two distinct real authenticated sessions) | testing only "no auth → 401" without also testing "authenticated but not the owner → 404/403" (the actual IDOR case) |
-| #4 | Grading with each of the 4 ratings (Again/Hard/Good/Easy) transitions a card's FSRS state consistent with `ts-fsrs`'s own scheduling semantics — not just "some fields changed" | The DB round-trip (row → typed Card → scheduler → persisted row) is assumed lossless; type/format coercion at the Postgres boundary is exactly where integration bugs hide | The column-to-Card field mapping in the review service, and whether an out-of-range rating value can reach the grading logic | integration (against a real/local Supabase row, not a hand-built Card object — the mapping itself is the risk) | asserting the exact due-date/stability values `ts-fsrs`'s internal algorithm produces (oracle problem); assert the shape of the transition instead (state changes, due moves forward, reps increments) and treat the library's own correctness as out of scope |
-| #5 | An exception thrown by any Supabase Auth SDK call (signup, signin, signout, middleware session resolution) never reaches the client as a raw, unhandled 500 | The existing wrapper is assumed to cover every current and future auth call site without re-verification | The exact call sites routed through the existing exception-handling wrapper today, and whether `middleware.ts`'s session resolution uses it too | unit (force a thrown exception, assert graceful mapping) | a test that never actually throws (would pass identically even if the try/catch were deleted) |
+| Risk | What would prove protection                                                                                                                                                                                                    | Must challenge                                                                                                                                                                                                         | Context `/10x-research` must ground                                                                                                                  | Likely cheapest layer                                                                                          | Anti-pattern to avoid                                                                                                                                                                                                                                          |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| #1   | Accepting a candidate as-is saves exactly what was shown; editing before accepting saves the edit, not the original; rejecting never triggers a network call; a double-click on Accept/Reject doesn't produce a duplicate save | Removal from the client-side list is not proof the server-side save actually succeeded or matched what was shown                                                                                                       | `CandidateCard`'s local state flow, the `POST /api/flashcards` contract, whether any server-side duplicate protection exists                         | integration (component + mocked fetch boundary, or API-level)                                                  | asserting against the component's internal state instead of the actually-saved flashcard/network payload (oracle problem)                                                                                                                                      |
+| #2   | When OpenRouter is unavailable, returns an invalid-key error, or returns malformed data, the user sees a clear message — not a hang, not a raw 500, not a silent empty result presented as "nothing to review"                 | A 200 response from OpenRouter does not by itself mean valid candidates; "no extractable facts" and "response failed to parse" must be distinguishable                                                                 | The generate route's response contract, the `generation_failed` vs `validation_error` error-code taxonomy, interaction with the config-status banner | unit/integration (mock the OpenRouter HTTP boundary)                                                           | mocking away the JSON-schema parsing/validation logic itself (testing only the happy-path parse)                                                                                                                                                               |
+| #3   | A second, different authenticated user can never read, update, or delete the first user's flashcard through the API, even when passing the correct row id                                                                      | DB-level RLS alone is not sufficient proof — the manual-flashcard-management plan already found RLS returns an empty result array (not an error) for someone else's row, which the route layer must translate into 404 | The exact not-found mapping per route, and whether newer routes (e.g. review grading) got the same treatment as the original CRUD routes             | integration (two distinct real authenticated sessions)                                                         | testing only "no auth → 401" without also testing "authenticated but not the owner → 404/403" (the actual IDOR case)                                                                                                                                           |
+| #4   | Grading with each of the 4 ratings (Again/Hard/Good/Easy) transitions a card's FSRS state consistent with `ts-fsrs`'s own scheduling semantics — not just "some fields changed"                                                | The DB round-trip (row → typed Card → scheduler → persisted row) is assumed lossless; type/format coercion at the Postgres boundary is exactly where integration bugs hide                                             | The column-to-Card field mapping in the review service, and whether an out-of-range rating value can reach the grading logic                         | integration (against a real/local Supabase row, not a hand-built Card object — the mapping itself is the risk) | asserting the exact due-date/stability values `ts-fsrs`'s internal algorithm produces (oracle problem); assert the shape of the transition instead (state changes, due moves forward, reps increments) and treat the library's own correctness as out of scope |
+| #5   | An exception thrown by any Supabase Auth SDK call (signup, signin, signout, middleware session resolution) never reaches the client as a raw, unhandled 500                                                                    | The existing wrapper is assumed to cover every current and future auth call site without re-verification                                                                                                               | The exact call sites routed through the existing exception-handling wrapper today, and whether `middleware.ts`'s session resolution uses it too      | unit (force a thrown exception, assert graceful mapping)                                                       | a test that never actually throws (would pass identically even if the try/catch were deleted)                                                                                                                                                                  |
 
 ## 3. Phased Rollout
 
@@ -72,12 +72,12 @@ Each row is a discrete rollout phase that will open its own change folder
 via `/10x-new`. Status moves left-to-right through the values below; the
 orchestrator updates Status as artifacts appear on disk.
 
-| # | Phase name | Goal (one line) | Risks covered | Test types | Status | Change folder |
-|---|---|---|---|---|---|---|
-| 1 | Bootstrap runner + AI review critical path | Stand up Vitest and defend Risk #1+#2 at the cheapest layer | #1, #2 | unit + integration | change opened | context/changes/testing-bootstrap-ai-review-critical-path/ |
-| 2 | Authorization and data-integrity coverage | Lock cross-user access boundaries and FSRS grading correctness | #3, #4 | integration | not started | — |
-| 3 | Auth resilience regression guard | Ensure existing auth-exception hardening doesn't silently regress | #5 | unit | not started | — |
-| 4 | Quality-gates wiring | Wire lint+typecheck+unit/integration as required CI gates | cross-cutting | gates | not started | — |
+| #   | Phase name                                 | Goal (one line)                                                   | Risks covered | Test types         | Status        | Change folder                                              |
+| --- | ------------------------------------------ | ----------------------------------------------------------------- | ------------- | ------------------ | ------------- | ---------------------------------------------------------- |
+| 1   | Bootstrap runner + AI review critical path | Stand up Vitest and defend Risk #1+#2 at the cheapest layer       | #1, #2        | unit + integration | change opened | context/changes/testing-bootstrap-ai-review-critical-path/ |
+| 2   | Authorization and data-integrity coverage  | Lock cross-user access boundaries and FSRS grading correctness    | #3, #4        | integration        | not started   | —                                                          |
+| 3   | Auth resilience regression guard           | Ensure existing auth-exception hardening doesn't silently regress | #5            | unit               | not started   | —                                                          |
+| 4   | Quality-gates wiring                       | Wire lint+typecheck+unit/integration as required CI gates         | cross-cutting | gates              | not started   | —                                                          |
 
 **Status vocabulary** (fixed — parser literals): `not started` → `change opened` → `researched` → `planned` → `implementing` → `complete`.
 
@@ -88,18 +88,19 @@ No AI-native/vision-review phase — per interview Q5 (don't overinvest in infra
 The classic test base for this project. AI-native tools (if any) carry a
 `checked:` date so future readers can see which lines need re-verification.
 
-| Layer | Tool | Version | Notes |
-|---|---|---|---|
-| unit + integration | Vitest | none yet — see Phase 1 | Astro 6 officially recommends Vitest via `getViteConfig()` (confirmed via Context7, `/withastro/docs`, guides/testing.mdx, checked: 2026-09-10). API routes and `src/lib/services/*` are plain TS modules, testable directly without the Astro Container API. |
-| API mocking | none yet — see Phase 1 | — | Mock only the OpenRouter HTTP edge for Risk #2; never mock Supabase for Risk #3/#4 integration tests — RLS and FSRS mapping bugs live at that real boundary. |
-| e2e | none yet | — | Not scheduled in this rollout — no risk in §2 required promoting past integration, and interview Q5 explicitly asked not to overinvest in infrastructure. Revisit at `--refresh` if a future risk needs full deployed-shape coverage. |
-| accessibility | none yet | — | Not scheduled — no risk in §2 traces to an accessibility failure mode. |
-| (optional) AI-native | not used | n/a | No AI-native layer in this rollout — see §3 note. When NOT to use: any of these five risks, since each has a deterministic, cheaper classic-layer test. |
+| Layer                | Tool                   | Version                | Notes                                                                                                                                                                                                                                                         |
+| -------------------- | ---------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| unit + integration   | Vitest                 | none yet — see Phase 1 | Astro 6 officially recommends Vitest via `getViteConfig()` (confirmed via Context7, `/withastro/docs`, guides/testing.mdx, checked: 2026-09-10). API routes and `src/lib/services/*` are plain TS modules, testable directly without the Astro Container API. |
+| API mocking          | none yet — see Phase 1 | —                      | Mock only the OpenRouter HTTP edge for Risk #2; never mock Supabase for Risk #3/#4 integration tests — RLS and FSRS mapping bugs live at that real boundary.                                                                                                  |
+| e2e                  | none yet               | —                      | Not scheduled in this rollout — no risk in §2 required promoting past integration, and interview Q5 explicitly asked not to overinvest in infrastructure. Revisit at `--refresh` if a future risk needs full deployed-shape coverage.                         |
+| accessibility        | none yet               | —                      | Not scheduled — no risk in §2 traces to an accessibility failure mode.                                                                                                                                                                                        |
+| (optional) AI-native | not used               | n/a                    | No AI-native layer in this rollout — see §3 note. When NOT to use: any of these five risks, since each has a deterministic, cheaper classic-layer test.                                                                                                       |
 
 If a row reads "none yet — see Phase <N>", that gap is addressed by the
 named rollout phase.
 
 **Stack grounding tools (current session):**
+
 - Docs: Context7 (`/withastro/docs`) — confirmed Astro's official Vitest setup guidance (`getViteConfig()`, Container API scope); checked: 2026-09-10
 - Search: Exa.ai — available in this session, not used (Context7's official docs answer was sufficient and preferred over search); checked: 2026-09-10
 - Runtime/browser: claude-in-chrome (browser automation) — available, not used; possible future use for a manual smoke pass, not for this rollout's test layers; checked: 2026-09-10
@@ -111,16 +112,16 @@ The full set of gates that must pass before a change reaches production.
 "Required for §3 Phase <N>" means the gate is enforced once that rollout
 phase lands; before that, the gate is `planned`.
 
-| Gate | Where | Required? | Catches |
-|---|---|---|---|
-| lint + typecheck | local + CI | required (already wired) | syntactic / type drift |
-| build | local + CI | required (already wired) | build-breaking regressions |
-| unit + integration | local + CI | required after §3 Phase 4 | logic regressions (Risks #1–#5) |
-| e2e on critical flows | — | not planned this rollout | — (see §4 e2e row) |
-| post-edit hook | local (agent loop) | not planned this rollout | — |
-| visual diff (deterministic) | — | not planned this rollout | — |
-| multimodal visual review | — | not planned this rollout | — |
-| pre-prod smoke | between merge + prod | optional (manual, existing practice per archived plans) | environment-specific failures |
+| Gate                        | Where                | Required?                                               | Catches                         |
+| --------------------------- | -------------------- | ------------------------------------------------------- | ------------------------------- |
+| lint + typecheck            | local + CI           | required (already wired)                                | syntactic / type drift          |
+| build                       | local + CI           | required (already wired)                                | build-breaking regressions      |
+| unit + integration          | local + CI           | required after §3 Phase 4                               | logic regressions (Risks #1–#5) |
+| e2e on critical flows       | —                    | not planned this rollout                                | — (see §4 e2e row)              |
+| post-edit hook              | local (agent loop)   | not planned this rollout                                | —                               |
+| visual diff (deterministic) | —                    | not planned this rollout                                | —                               |
+| multimodal visual review    | —                    | not planned this rollout                                | —                               |
+| pre-prod smoke              | between merge + prod | optional (manual, existing practice per archived plans) | environment-specific failures   |
 
 ## 6. Cookbook Patterns
 
@@ -130,11 +131,16 @@ the relevant rollout phase ships; before that, the sub-section reads
 
 ### 6.1 Adding a unit test
 
-- TBD — see §3 Phase 1 (runner bootstrap) and §3 Phase 3 (auth-exception pattern).
+- **Service functions that take a Supabase client as a parameter** (e.g. `flashcards.service.ts`): inject a hand-built fake object shaped like the subset of `SupabaseClient` your function touches — do not `vi.mock("@/lib/supabase")` for these; the function never imports the client itself, so there's nothing to mock. See `src/pages/api/flashcards/__tests__/helpers/fake-supabase.ts` for the pattern (a call-counting, in-memory-backed `.from().insert().select().single()` stand-in).
+- **A single external HTTP boundary** (e.g. the OpenRouter call in `ai-flashcard-generation.service.ts`): stub `global.fetch` directly via `vi.stubGlobal("fetch", vi.fn())` — no HTTP-mocking library needed for one call site. See `src/lib/services/__tests__/ai-flashcard-generation.service.test.ts`.
+- **A module-level constant read from `astro:env/server`** (e.g. `OPENROUTER_API_KEY`): it is frozen at first import, so `vi.stubEnv()` alone does nothing to a test that statically imported the module earlier in the file. Use `vi.resetModules()` + `vi.stubEnv(...)` + a per-test dynamic `await import(...)` instead — see the `loadService()` helper at the top of `ai-flashcard-generation.service.test.ts`.
+- See also: §3 Phase 3 (auth-exception pattern — TBD, not yet shipped).
 
 ### 6.2 Adding an integration test
 
-- TBD — see §3 Phase 1 (candidate review / OpenRouter boundary pattern) and §3 Phase 2 (cross-user RLS / FSRS grading pattern).
+- **A route that constructs its own Supabase client internally** (every route under `src/pages/api/` does — `context.locals` only carries `user`, never a client): `vi.mock("@/lib/supabase")` to control `createClient`'s return value, then hand-build a minimal object matching `Parameters<typeof POST>[0]` — typically just `{ locals: { user }, request: new Request(...), cookies: {} as AstroCookies }` cast through `as unknown`. Real `Request` objects (not hand-rolled stubs) let the route's own `request.json()` parsing run for real. See `src/pages/api/flashcards/__tests__/index.test.ts` and `generate.test.ts`.
+- **A route that delegates to a service you've already unit-tested** (e.g. `generate.ts` → `generateFlashcardCandidates`): `vi.mock` the service module too, and keep the route test thin — assert only what the route itself owns (auth guard, input validation, status-code mapping), not the service's internal branches. Re-testing already-covered branches at a second layer is the "redundant copies" anti-pattern (see CLAUDE.md's vibe-testing table). See `generate.test.ts`.
+- **A React component whose behavior must be proven against a real network payload, not internal state** (the oracle-problem trap — see `research.md`'s Risk #1 verdict for why this matters here): render it for real with `@testing-library/react`, stub `global.fetch`, and assert on the mocked call's URL/method/body or call count. Needs a `// @vitest-environment jsdom` docblock at the top of the file — Vitest 5 removed `environmentMatchGlobs`, so this per-file control comment is the current mechanism, not a global config option. See `src/components/flashcards/__tests__/CandidateCard.test.tsx`.
 
 ### 6.3 Adding an e2e test
 
@@ -142,7 +148,8 @@ the relevant rollout phase ships; before that, the sub-section reads
 
 ### 6.4 Adding a test for a new API endpoint
 
-- TBD — see §3 Phase 2 for the not-found/ownership mapping pattern new endpoints must follow.
+- Follow the §6.2 route-test pattern (mock `@/lib/supabase`, hand-build a minimal context). At minimum, cover: 401 when `locals.user` is absent; 500 when `createClient` returns `null` (missing Supabase env — every route must guard this per `src/lib/supabase.ts`'s documented `null`-on-missing-env contract); 400 for each distinct input-validation failure; the success status and response-body shape; and, if the endpoint persists data, whether a duplicate/replay of the same request is protected against at the server layer or only at the client — don't assume protection exists without a test proving it either way (see `index.test.ts`'s duplicate-save case for the pattern of documenting an absence, not just a presence).
+- See also: §3 Phase 2 for the not-found/ownership mapping pattern (RLS returns an empty array, not an error, for rows you don't own — TBD, not yet shipped).
 
 ### 6.5 Adding a test for FSRS/scheduling logic
 
@@ -150,7 +157,7 @@ the relevant rollout phase ships; before that, the sub-section reads
 
 ### 6.6 Per-rollout-phase notes
 
-(Fills in as phases ship.)
+- **§3 Phase 1** (`context/changes/testing-bootstrap-ai-review-critical-path/`, shipped): bootstrapped Vitest 5 + `@testing-library/react`. Note the deviation from this plan's original assumption — Astro's documented `getViteConfig()` setup does **not** work in this repo: `@cloudflare/vite-plugin` (pulled in via `astro.config.mjs`'s `adapter: cloudflare()`) rejects Vitest's default SSR `resolve.external` at startup, with no working override found via `getViteConfig()`'s `inlineAstroConfig` argument. `vitest.config.ts` instead hand-rolls the `@/*` alias and stubs `astro:env/server` directly (see `vitest.astro-env-server.stub.ts`) — this sidesteps loading the Cloudflare plugin in the test process entirely. Re-check this if `@cloudflare/vite-plugin` or Vitest release a fix; until then, new env-schema fields must be added to both `astro.config.mjs` and the stub file by hand.
 
 ## 7. What We Deliberately Don't Test
 

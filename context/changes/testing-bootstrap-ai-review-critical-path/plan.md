@@ -416,24 +416,24 @@ Not applicable — no data migration in this phase (the duplicate-save gap is de
 
 #### Automated
 
-- [x] 5.1 `npm run test -- flashcards/generate` passes all cases
-- [x] 5.2 `npm run typecheck` passes
-- [x] 5.3 `npm run lint` passes
+- [x] 5.1 `npm run test -- flashcards/generate` passes all cases — 8e6ec1b
+- [x] 5.2 `npm run typecheck` passes — 8e6ec1b
+- [x] 5.3 `npm run lint` passes — 8e6ec1b
 
 #### Manual
 
-- [x] 5.4 Confirm the service mock was invoked with trimmed `text`
+- [x] 5.4 Confirm the service mock was invoked with trimmed `text` — 8e6ec1b
 
 ### Phase 6: Cookbook Update
 
 #### Automated
 
-- [ ] 6.1 `npm run test` (full suite) passes
-- [ ] 6.2 `npm run typecheck` passes
-- [ ] 6.3 `npm run lint` passes
-- [ ] 6.4 `npm run build` still succeeds
+- [x] 6.1 `npm run test` (full suite) passes
+- [x] 6.2 `npm run typecheck` passes
+- [x] 6.3 `npm run lint` passes
+- [x] 6.4 `npm run build` still succeeds
 
 #### Manual
 
-- [ ] 6.5 Read §6.1/§6.2/§6.4 back for a future-contributor sanity check
-- [ ] 6.6 Confirm no unintended edits landed outside §6 and §3's status cell
+- [x] 6.5 Read §6.1/§6.2/§6.4 back for a future-contributor sanity check
+- [x] 6.6 Confirm no unintended edits landed outside §6 and §3's status cell

@@ -1,7 +1,7 @@
 ---
 change_id: testing-bootstrap-ai-review-critical-path
 title: Bootstrap Vitest and cover AI review critical path (Risks #1, #2)
-status: implementing
+status: implemented
 created: 2026-09-10
 updated: 2026-09-10
 archived_at: null
