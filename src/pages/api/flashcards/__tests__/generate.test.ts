@@ -41,6 +41,21 @@ describe("POST /api/flashcards/generate", () => {
     expect(generateFlashcardCandidates).not.toHaveBeenCalled();
   });
 
+  it("returns 400 validation_error for an invalid JSON body", async () => {
+    const response = await POST({
+      locals: { user: AUTHENTICATED_USER },
+      request: new Request("http://localhost/api/flashcards/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "not valid json",
+      }),
+    } as unknown as Parameters<typeof POST>[0]);
+
+    expect(response.status).toBe(400);
+    const body = (await response.json()) as { error: { code: string } };
+    expect(body.error.code).toBe("validation_error");
+  });
+
   it("returns 400 validation_error when text is missing or not a string", async () => {
     const response = await POST(makeContext(AUTHENTICATED_USER, {}));
 

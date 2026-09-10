@@ -41,7 +41,10 @@ export function createFakeSupabaseClient() {
                     updated_at: now,
                   } as Flashcard;
                   rows.push(flashcard);
-                  return { data: flashcard, error: null };
+                  // Real Supabase's `.single()` returns a thenable; mirror that
+                  // shape rather than a plain object so this fake keeps working
+                  // if createFlashcard ever holds the builder before awaiting it.
+                  return Promise.resolve({ data: flashcard, error: null });
                 },
               };
             },
