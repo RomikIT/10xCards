@@ -53,7 +53,8 @@ export const POST: APIRoute = async (context) => {
     return Response.json({ error: { code: "not_found", message: "Flashcard not found." } }, { status: 404 });
   }
   if ("error" in result) {
-    return Response.json({ error: result.error }, { status: 500 });
+    const status = result.error.code === "validation_error" ? 400 : 500;
+    return Response.json({ error: result.error }, { status });
   }
 
   return Response.json({ flashcard: result.data }, { status: 200 });
