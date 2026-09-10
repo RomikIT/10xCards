@@ -1,10 +1,10 @@
 ---
 change_id: account-signup-and-login
 title: Account signup and login
-status: impl_reviewed
+status: archived
 created: 2026-09-09
-updated: 2026-09-09
-archived_at: null
+updated: 2026-09-10
+archived_at: 2026-09-10T07:23:04Z
 ---
 
 ## Notes
