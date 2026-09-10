@@ -366,27 +366,27 @@ Not applicable — no data migration in this phase (the duplicate-save gap is de
 
 #### Automated
 
-- [x] 1.1 `npm install` completes with new devDependencies present
-- [x] 1.2 `npm run test` executes and passes
-- [x] 1.3 `npm run typecheck` passes
-- [x] 1.4 `npm run lint` passes on all new files
+- [x] 1.1 `npm install` completes with new devDependencies present — f3c90f3
+- [x] 1.2 `npm run test` executes and passes — f3c90f3
+- [x] 1.3 `npm run typecheck` passes — f3c90f3
+- [x] 1.4 `npm run lint` passes on all new files — f3c90f3
 
 #### Manual
 
-- [x] 1.5 Confirm `bootstrap.test.ts` exercised the `null`-return branch (not vacuous)
-- [x] 1.6 Confirm `npm run build` still succeeds
+- [x] 1.5 Confirm `bootstrap.test.ts` exercised the `null`-return branch (not vacuous) — f3c90f3
+- [x] 1.6 Confirm `npm run build` still succeeds — f3c90f3
 
 ### Phase 2: Risk #1 — CandidateCard Component Tests
 
 #### Automated
 
-- [ ] 2.1 `npm run test -- CandidateCard` passes all four cases
-- [ ] 2.2 `npm run typecheck` passes
-- [ ] 2.3 `npm run lint` passes
+- [x] 2.1 `npm run test -- CandidateCard` passes all four cases
+- [x] 2.2 `npm run typecheck` passes
+- [x] 2.3 `npm run lint` passes
 
 #### Manual
 
-- [ ] 2.4 Break the `disabled` guard, confirm the double-click test fails, then revert
+- [x] 2.4 Break the `disabled` guard, confirm the double-click test fails, then revert
 
 ### Phase 3: Risk #1 — POST /api/flashcards Route Tests
 
