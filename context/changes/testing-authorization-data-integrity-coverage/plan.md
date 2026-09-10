@@ -297,11 +297,11 @@ No schema changes. No new migrations.
 
 #### Automated
 
-- [x] 4.1 `npm run test:integration` passes
-- [x] 4.2 Type checking passes: `npm run lint`
-- [x] 4.3 Build succeeds: `npm run build`
-- [x] 4.4 `npm test` (DB-free suite) still passes unaffected
+- [x] 4.1 `npm run test:integration` passes — e545247
+- [x] 4.2 Type checking passes: `npm run lint` — e545247
+- [x] 4.3 Build succeeds: `npm run build` — e545247
+- [x] 4.4 `npm test` (DB-free suite) still passes unaffected — e545247
 
 #### Manual
 
-- [x] 4.5 Manually inspect a graded row via Supabase Studio to confirm numeric column types
+- [x] 4.5 Manually inspect a graded row via Supabase Studio to confirm numeric column types — e545247
