@@ -1,10 +1,10 @@
 ---
 change_id: spaced-repetition-review-session
 title: User can review due flashcards via spaced repetition
-status: impl_reviewed
+status: archived
 created: 2026-09-10
 updated: 2026-09-10
-archived_at: null
+archived_at: 2026-09-10T07:23:04Z
 ---
 
 ## Notes

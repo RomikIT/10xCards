@@ -45,7 +45,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | done |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | done |
 | S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | done |
-| S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-01, S-02     | FR-009, FR-010                            | in-progress |
+| S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-01, S-02     | FR-009, FR-010                            | done |
 
 ## Streams
 
@@ -136,7 +136,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Unknowns:**
   - No specific ready-made spaced-repetition library or algorithm is named anywhere in the PRD or `tech-stack.md` — Non-Goals rules out building one from scratch, but the actual choice is still open, and this slice's review-state schema depends on it before the review-session logic can be built. Owner: user. Block: yes.
 - **Risk:** This is the north star — the spaced-repetition loop is the product's other core differentiator per the Vision recap, so proving it end-to-end validates the second half of the product's value proposition. It needs real flashcards to review, so it depends on S-02, and needs the `flashcards` table from F-01 to extend with scheduling columns. The library choice and its schema were previously split into a separate F-02 foundation, but since the schema only makes sense once the library is picked and nothing else consumed that foundation, it's folded directly into this slice — one less layer to track for the same blocking decision.
-- **Status:** in-progress
+- **Status:** done
 
 ## Backlog Handoff
 
@@ -170,3 +170,4 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **S-01: user can sign up for an account and log in with email + password** — Archived 2026-09-10 → `context/archive/2026-09-09-account-signup-and-login/`. Lesson: —.
 - **S-02: user can paste a block of study text, request AI-generated flashcard candidates, and accept, edit, or reject each one before it's saved to their deck** — Archived 2026-09-10 → `context/archive/2026-09-09-ai-generated-flashcard-review/`. Lesson: —.
 - **S-03: user can fully manage their own flashcards (create, view, edit, delete) without going through AI generation** — Archived 2026-09-10 → `context/archive/2026-09-09-manual-flashcard-management/`. Lesson: —.
+- **S-04: user can start a review session where due flashcards — scheduled by a chosen spaced-repetition algorithm — are served, and grade their recall to update the schedule** — Archived 2026-09-10 → `context/archive/2026-09-10-spaced-repetition-review-session/`. Lesson: —.
