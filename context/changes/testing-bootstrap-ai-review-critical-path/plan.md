@@ -392,25 +392,25 @@ Not applicable — no data migration in this phase (the duplicate-save gap is de
 
 #### Automated
 
-- [x] 3.1 `npm run test -- flashcards/index` passes all cases including the duplicate-save regression pin
-- [x] 3.2 `npm run typecheck` passes
-- [x] 3.3 `npm run lint` passes
+- [x] 3.1 `npm run test -- flashcards/index` passes all cases including the duplicate-save regression pin — 73f6a4a
+- [x] 3.2 `npm run typecheck` passes — 73f6a4a
+- [x] 3.3 `npm run lint` passes — 73f6a4a
 
 #### Manual
 
-- [x] 3.4 Confirm the duplicate-save test is documented with a comment linking to `research.md`
+- [x] 3.4 Confirm the duplicate-save test is documented with a comment linking to `research.md` — 73f6a4a
 
 ### Phase 4: Risk #2 — generateFlashcardCandidates Service Tests
 
 #### Automated
 
-- [ ] 4.1 `npm run test -- ai-flashcard-generation.service` passes all 8 `it.each` rows
-- [ ] 4.2 `npm run typecheck` passes
-- [ ] 4.3 `npm run lint` passes
+- [x] 4.1 `npm run test -- ai-flashcard-generation.service` passes all 8 `it.each` rows
+- [x] 4.2 `npm run typecheck` passes
+- [x] 4.3 `npm run lint` passes
 
 #### Manual
 
-- [ ] 4.4 Spot-check row-level isolation by breaking one guard clause
+- [x] 4.4 Spot-check row-level isolation by breaking one guard clause
 
 ### Phase 5: Risk #2 — POST /api/flashcards/generate Route Tests
 
