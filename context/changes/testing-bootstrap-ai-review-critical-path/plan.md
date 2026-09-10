@@ -428,12 +428,12 @@ Not applicable — no data migration in this phase (the duplicate-save gap is de
 
 #### Automated
 
-- [x] 6.1 `npm run test` (full suite) passes
-- [x] 6.2 `npm run typecheck` passes
-- [x] 6.3 `npm run lint` passes
-- [x] 6.4 `npm run build` still succeeds
+- [x] 6.1 `npm run test` (full suite) passes — 8808252
+- [x] 6.2 `npm run typecheck` passes — 8808252
+- [x] 6.3 `npm run lint` passes — 8808252
+- [x] 6.4 `npm run build` still succeeds — 8808252
 
 #### Manual
 
-- [x] 6.5 Read §6.1/§6.2/§6.4 back for a future-contributor sanity check
-- [x] 6.6 Confirm no unintended edits landed outside §6 and §3's status cell
+- [x] 6.5 Read §6.1/§6.2/§6.4 back for a future-contributor sanity check — 8808252
+- [x] 6.6 Confirm no unintended edits landed outside §6 and §3's status cell — 8808252
