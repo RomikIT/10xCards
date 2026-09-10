@@ -271,27 +271,27 @@ No schema changes. No new migrations.
 
 #### Automated
 
-- [x] 2.1 Type checking passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
-- [x] 2.3 `npm test` still passes with no Supabase network calls
-- [x] 2.4 Smoke test creates and cleans up two real users with `npx supabase start` running
-- [x] 2.5 `npm run test:integration` fails with the readable connection-error message when Supabase is not running
+- [x] 2.1 Type checking passes: `npm run lint` — a4c506a
+- [x] 2.2 Build succeeds: `npm run build` — a4c506a
+- [x] 2.3 `npm test` still passes with no Supabase network calls — a4c506a
+- [x] 2.4 Smoke test creates and cleans up two real users with `npx supabase start` running — a4c506a
+- [x] 2.5 `npm run test:integration` fails with the readable connection-error message when Supabase is not running — a4c506a
 
 #### Manual
 
-- [x] 2.6 Confirm `SUPABASE_SERVICE_ROLE_KEY` obtainable via `npx supabase status` and works for cleanup
+- [x] 2.6 Confirm `SUPABASE_SERVICE_ROLE_KEY` obtainable via `npx supabase status` and works for cleanup — a4c506a
 
 ### Phase 3: Risk #3 — cross-user IDOR real-DB integration tests
 
 #### Automated
 
-- [ ] 3.1 `npm run test:integration` passes
-- [ ] 3.2 Type checking passes: `npm run lint`
-- [ ] 3.3 Build succeeds: `npm run build`
+- [x] 3.1 `npm run test:integration` passes
+- [x] 3.2 Type checking passes: `npm run lint`
+- [x] 3.3 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 3.4 Temporarily remove the update/delete RLS policies locally and confirm the corresponding tests fail, then restore
+- [x] 3.4 Temporarily remove the update/delete RLS policies locally and confirm the corresponding tests fail, then restore
 
 ### Phase 4: Risk #4 — FSRS grading data-integrity real-DB integration tests
 
