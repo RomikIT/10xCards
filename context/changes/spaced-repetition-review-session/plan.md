@@ -255,21 +255,21 @@ The new migration is purely additive (`ALTER TABLE ... ADD COLUMN ... DEFAULT ..
 
 #### Automated
 
-- [x] 1.1 ts-fsrs present in package.json dependencies and package-lock.json
-- [x] 1.2 Migration applies cleanly against local Supabase
-- [x] 1.3 Type checking passes
+- [x] 1.1 ts-fsrs present in package.json dependencies and package-lock.json — d9088d5
+- [x] 1.2 Migration applies cleanly against local Supabase — d9088d5
+- [x] 1.3 Type checking passes — d9088d5
 
 #### Manual
 
-- [x] 1.4 Pre-existing flashcard row has due <= now() and state = 0 after migration
-- [x] 1.5 Newly-created flashcard gets the same SRS defaults
+- [x] 1.4 Pre-existing flashcard row has due <= now() and state = 0 after migration — d9088d5
+- [x] 1.5 Newly-created flashcard gets the same SRS defaults — d9088d5
 
 ### Phase 2: Review service
 
 #### Automated
 
-- [ ] 2.1 Type checking passes
-- [ ] 2.2 Build succeeds
+- [x] 2.1 Type checking passes
+- [x] 2.2 Build succeeds
 
 ### Phase 3: Review API endpoints
 
