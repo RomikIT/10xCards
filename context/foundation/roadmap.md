@@ -45,7 +45,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | in-progress |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | in-progress |
 | S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | in-progress |
-| S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-01, S-02     | FR-009, FR-010                            | blocked  |
+| S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-01, S-02     | FR-009, FR-010                            | in-progress |
 
 ## Streams
 
@@ -136,7 +136,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Unknowns:**
   - No specific ready-made spaced-repetition library or algorithm is named anywhere in the PRD or `tech-stack.md` — Non-Goals rules out building one from scratch, but the actual choice is still open, and this slice's review-state schema depends on it before the review-session logic can be built. Owner: user. Block: yes.
 - **Risk:** This is the north star — the spaced-repetition loop is the product's other core differentiator per the Vision recap, so proving it end-to-end validates the second half of the product's value proposition. It needs real flashcards to review, so it depends on S-02, and needs the `flashcards` table from F-01 to extend with scheduling columns. The library choice and its schema were previously split into a separate F-02 foundation, but since the schema only makes sense once the library is picked and nothing else consumed that foundation, it's folded directly into this slice — one less layer to track for the same blocking decision.
-- **Status:** blocked
+- **Status:** in-progress
 
 ## Backlog Handoff
 
