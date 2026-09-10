@@ -41,7 +41,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 
 | ID   | Change ID                        | Outcome (user can …)                                                              | Prerequisites | PRD refs                                | Status   |
 | ---- | --------------------------------- | ----------------------------------------------------------------------------------- | -------------- | ----------------------------------------- | -------- |
-| F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | in-progress |
+| F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | done |
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | in-progress |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | in-progress |
 | S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | in-progress |
@@ -83,7 +83,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** The codebase currently has no application tables at all — everything downstream is blocked until this lands, so it's sequenced first. Kept intentionally minimal (no spaced-repetition scheduling columns, no separate deck/tag entities) so it doesn't drift into "build the whole data layer" — S-04 extends the table with its own scheduling columns once the spaced-repetition library is chosen.
-- **Status:** in-progress
+- **Status:** done
 
 ## Slices
 
@@ -166,4 +166,4 @@ Foundations below assume these are present and do NOT re-scaffold them.
 
 ## Done
 
-(Empty — no changes archived yet.)
+- **F-01: (foundation) A minimal `flashcards` table (question, answer, owner `user_id`, timestamps) exists with per-user row-level-security policies, so every other slice has somewhere to persist and query flashcards scoped to their owner.** — Archived 2026-09-10 → `context/archive/2026-09-09-minimal-flashcard-schema/`. Lesson: —.
