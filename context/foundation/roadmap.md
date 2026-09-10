@@ -44,7 +44,7 @@ Professionals preparing for a certification exam want to use spaced repetition t
 | F-01 | minimal-flashcard-schema          | (foundation) minimal `flashcards` table with per-user RLS exists                    | —              | Access Control                            | done |
 | S-01 | account-signup-and-login          | user can sign up and log in                                                         | —              | FR-001, FR-002                            | done |
 | S-02 | ai-generated-flashcard-review     | user can paste study text, get AI flashcard candidates, and accept/edit/reject them | F-01, S-01     | FR-003, FR-004, US-01                     | done |
-| S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | in-progress |
+| S-03 | manual-flashcard-management       | user can create, view, edit, and delete flashcards manually                         | F-01, S-01     | FR-005, FR-006, FR-007, FR-008            | done |
 | S-04 | spaced-repetition-review-session  | user can review due flashcards and grade recall via a spaced-repetition algorithm   | F-01, S-02     | FR-009, FR-010                            | in-progress |
 
 ## Streams
@@ -123,7 +123,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Standard CRUD on the table F-01 creates; no new external-integration risk. Kept as one slice rather than split by CRUD verb, since create/view/edit/delete of the same entity are the minimum viable "manage my own flashcards" capability together. Runs in parallel with S-02 to make efficient use of limited solo, after-hours development time.
-- **Status:** in-progress
+- **Status:** done
 
 ### S-04: User can review due flashcards via spaced repetition
 
@@ -169,3 +169,4 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **F-01: (foundation) A minimal `flashcards` table (question, answer, owner `user_id`, timestamps) exists with per-user row-level-security policies, so every other slice has somewhere to persist and query flashcards scoped to their owner.** — Archived 2026-09-10 → `context/archive/2026-09-09-minimal-flashcard-schema/`. Lesson: —.
 - **S-01: user can sign up for an account and log in with email + password** — Archived 2026-09-10 → `context/archive/2026-09-09-account-signup-and-login/`. Lesson: —.
 - **S-02: user can paste a block of study text, request AI-generated flashcard candidates, and accept, edit, or reject each one before it's saved to their deck** — Archived 2026-09-10 → `context/archive/2026-09-09-ai-generated-flashcard-review/`. Lesson: —.
+- **S-03: user can fully manage their own flashcards (create, view, edit, delete) without going through AI generation** — Archived 2026-09-10 → `context/archive/2026-09-09-manual-flashcard-management/`. Lesson: —.
