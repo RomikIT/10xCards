@@ -404,25 +404,25 @@ Not applicable — no data migration in this phase (the duplicate-save gap is de
 
 #### Automated
 
-- [x] 4.1 `npm run test -- ai-flashcard-generation.service` passes all 8 `it.each` rows
-- [x] 4.2 `npm run typecheck` passes
-- [x] 4.3 `npm run lint` passes
+- [x] 4.1 `npm run test -- ai-flashcard-generation.service` passes all 8 `it.each` rows — 5a76d67
+- [x] 4.2 `npm run typecheck` passes — 5a76d67
+- [x] 4.3 `npm run lint` passes — 5a76d67
 
 #### Manual
 
-- [x] 4.4 Spot-check row-level isolation by breaking one guard clause
+- [x] 4.4 Spot-check row-level isolation by breaking one guard clause — 5a76d67
 
 ### Phase 5: Risk #2 — POST /api/flashcards/generate Route Tests
 
 #### Automated
 
-- [ ] 5.1 `npm run test -- flashcards/generate` passes all cases
-- [ ] 5.2 `npm run typecheck` passes
-- [ ] 5.3 `npm run lint` passes
+- [x] 5.1 `npm run test -- flashcards/generate` passes all cases
+- [x] 5.2 `npm run typecheck` passes
+- [x] 5.3 `npm run lint` passes
 
 #### Manual
 
-- [ ] 5.4 Confirm the service mock was invoked with trimmed `text`
+- [x] 5.4 Confirm the service mock was invoked with trimmed `text`
 
 ### Phase 6: Cookbook Update
 
