@@ -285,23 +285,23 @@ No schema changes. No new migrations.
 
 #### Automated
 
-- [x] 3.1 `npm run test:integration` passes
-- [x] 3.2 Type checking passes: `npm run lint`
-- [x] 3.3 Build succeeds: `npm run build`
+- [x] 3.1 `npm run test:integration` passes — b589d95
+- [x] 3.2 Type checking passes: `npm run lint` — b589d95
+- [x] 3.3 Build succeeds: `npm run build` — b589d95
 
 #### Manual
 
-- [x] 3.4 Temporarily remove the update/delete RLS policies locally and confirm the corresponding tests fail, then restore
+- [x] 3.4 Temporarily remove the update/delete RLS policies locally and confirm the corresponding tests fail, then restore — b589d95
 
 ### Phase 4: Risk #4 — FSRS grading data-integrity real-DB integration tests
 
 #### Automated
 
-- [ ] 4.1 `npm run test:integration` passes
-- [ ] 4.2 Type checking passes: `npm run lint`
-- [ ] 4.3 Build succeeds: `npm run build`
-- [ ] 4.4 `npm test` (DB-free suite) still passes unaffected
+- [x] 4.1 `npm run test:integration` passes
+- [x] 4.2 Type checking passes: `npm run lint`
+- [x] 4.3 Build succeeds: `npm run build`
+- [x] 4.4 `npm test` (DB-free suite) still passes unaffected
 
 #### Manual
 
-- [ ] 4.5 Manually inspect a graded row via Supabase Studio to confirm numeric column types
+- [x] 4.5 Manually inspect a graded row via Supabase Studio to confirm numeric column types
