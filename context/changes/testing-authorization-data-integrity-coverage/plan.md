@@ -259,27 +259,27 @@ No schema changes. No new migrations.
 
 #### Automated
 
-- [x] 1.1 Type checking passes: `npm run lint`
-- [x] 1.2 Build succeeds: `npm run build`
-- [x] 1.3 `npm test` passes (new `[id].test.ts` and `[id]/review.test.ts` included)
+- [x] 1.1 Type checking passes: `npm run lint` — bb0d0f2
+- [x] 1.2 Build succeeds: `npm run build` — bb0d0f2
+- [x] 1.3 `npm test` passes (new `[id].test.ts` and `[id]/review.test.ts` included) — bb0d0f2
 
 #### Manual
 
-- [x] 1.4 Temporarily break a `notFound` → `404` mapping and confirm the new test fails, then restore it
+- [x] 1.4 Temporarily break a `notFound` → `404` mapping and confirm the new test fails, then restore it — bb0d0f2
 
 ### Phase 2: Real-Supabase integration test infrastructure
 
 #### Automated
 
-- [ ] 2.1 Type checking passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
-- [ ] 2.3 `npm test` still passes with no Supabase network calls
-- [ ] 2.4 Smoke test creates and cleans up two real users with `npx supabase start` running
-- [ ] 2.5 `npm run test:integration` fails with the readable connection-error message when Supabase is not running
+- [x] 2.1 Type checking passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.3 `npm test` still passes with no Supabase network calls
+- [x] 2.4 Smoke test creates and cleans up two real users with `npx supabase start` running
+- [x] 2.5 `npm run test:integration` fails with the readable connection-error message when Supabase is not running
 
 #### Manual
 
-- [ ] 2.6 Confirm `SUPABASE_SERVICE_ROLE_KEY` obtainable via `npx supabase status` and works for cleanup
+- [x] 2.6 Confirm `SUPABASE_SERVICE_ROLE_KEY` obtainable via `npx supabase status` and works for cleanup
 
 ### Phase 3: Risk #3 — cross-user IDOR real-DB integration tests
 
