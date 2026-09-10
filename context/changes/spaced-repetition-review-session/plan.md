@@ -268,21 +268,21 @@ The new migration is purely additive (`ALTER TABLE ... ADD COLUMN ... DEFAULT ..
 
 #### Automated
 
-- [x] 2.1 Type checking passes
-- [x] 2.2 Build succeeds
+- [x] 2.1 Type checking passes — 0dea2eb
+- [x] 2.2 Build succeeds — 0dea2eb
 
 ### Phase 3: Review API endpoints
 
 #### Automated
 
-- [ ] 3.1 Type checking passes
-- [ ] 3.2 Build succeeds
+- [x] 3.1 Type checking passes
+- [x] 3.2 Build succeeds
 
 #### Manual
 
-- [ ] 3.3 Due-queue endpoint returns only cards with due <= now
-- [ ] 3.4 Grading endpoint updates due/stability/state/reps for each of the 4 ratings
-- [ ] 3.5 Grading a nonexistent id returns 404; unauthenticated request returns 401
+- [x] 3.3 Due-queue endpoint returns only cards with due <= now
+- [x] 3.4 Grading endpoint updates due/stability/state/reps for each of the 4 ratings
+- [x] 3.5 Grading a nonexistent id returns 404; unauthenticated request returns 401
 
 ### Phase 4: Review session UI
 
