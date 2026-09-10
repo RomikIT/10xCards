@@ -380,25 +380,25 @@ Not applicable — no data migration in this phase (the duplicate-save gap is de
 
 #### Automated
 
-- [x] 2.1 `npm run test -- CandidateCard` passes all four cases
-- [x] 2.2 `npm run typecheck` passes
-- [x] 2.3 `npm run lint` passes
+- [x] 2.1 `npm run test -- CandidateCard` passes all four cases — dee4d32
+- [x] 2.2 `npm run typecheck` passes — dee4d32
+- [x] 2.3 `npm run lint` passes — dee4d32
 
 #### Manual
 
-- [x] 2.4 Break the `disabled` guard, confirm the double-click test fails, then revert
+- [x] 2.4 Break the `disabled` guard, confirm the double-click test fails, then revert — dee4d32
 
 ### Phase 3: Risk #1 — POST /api/flashcards Route Tests
 
 #### Automated
 
-- [ ] 3.1 `npm run test -- flashcards/index` passes all cases including the duplicate-save regression pin
-- [ ] 3.2 `npm run typecheck` passes
-- [ ] 3.3 `npm run lint` passes
+- [x] 3.1 `npm run test -- flashcards/index` passes all cases including the duplicate-save regression pin
+- [x] 3.2 `npm run typecheck` passes
+- [x] 3.3 `npm run lint` passes
 
 #### Manual
 
-- [ ] 3.4 Confirm the duplicate-save test is documented with a comment linking to `research.md`
+- [x] 3.4 Confirm the duplicate-save test is documented with a comment linking to `research.md`
 
 ### Phase 4: Risk #2 — generateFlashcardCandidates Service Tests
 
