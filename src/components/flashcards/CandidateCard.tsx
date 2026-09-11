@@ -79,6 +79,7 @@ export function CandidateCard({ candidate, onAccepted, onRejected }: Props) {
       {isEditing ? (
         <>
           <Textarea
+            aria-label="Question"
             value={question}
             onChange={(event) => {
               setQuestion(event.target.value);
@@ -86,6 +87,7 @@ export function CandidateCard({ candidate, onAccepted, onRejected }: Props) {
             className="border-white/20 bg-white/10 text-white placeholder-white/40 focus-visible:ring-purple-400"
           />
           <Textarea
+            aria-label="Answer"
             value={answer}
             onChange={(event) => {
               setAnswer(event.target.value);

@@ -17,8 +17,6 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    // auth.setup.ts is added in a later plan step — until then this project
-    // matches no files and runs a no-op.
     { name: "setup", testMatch: /auth\.setup\.ts/ },
     {
       name: "chromium",
@@ -27,7 +25,14 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run dev",
+    // Build + preview, not `npm run dev`: runs the same server-rendered
+    // output CI/prod would serve, without Vite's dev-mode overhead — closer
+    // to what these tests are meant to protect. (The client:load hydration
+    // races these tests guard against, see context/foundation/lessons.md,
+    // turned out to reproduce under either command — this switch didn't fix
+    // that on its own, but testing against a prod-like build is still the
+    // better default.)
+    command: "npm run build && npm run preview",
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

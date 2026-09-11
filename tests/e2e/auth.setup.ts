@@ -1,4 +1,5 @@
 import { test as setup, expect } from "@playwright/test";
+import { fillAllWhenHydrated } from "./helpers";
 
 const authFile = "playwright/.auth/user.json";
 
@@ -12,13 +13,14 @@ setup("authenticate", async ({ page }) => {
   }
 
   await page.goto("/auth/signin");
-  // SignInForm is a client:load React island — same hydration race as the
-  // flashcards form (see seed.spec.ts): fill too early and the controlled
-  // input's value is wiped when React mounts. Wait for the island's JS to
-  // finish loading first.
-  await page.waitForLoadState("networkidle");
-  await page.getByLabel("Email", { exact: true }).fill(email);
-  await page.getByLabel("Password", { exact: true }).fill(password);
+  // SignInForm is a client:load React island — fillAllWhenHydrated verifies
+  // both fields together at the end of each attempt, so a field wiped by a
+  // delayed hydration event (after its own fill already looked fine) still
+  // triggers a full retry (see helpers.ts).
+  await fillAllWhenHydrated([
+    [page.getByLabel("Email", { exact: true }), email],
+    [page.getByLabel("Password", { exact: true }), password],
+  ]);
   await page.getByRole("button", { name: "Sign in" }).click();
 
   // A failed sign-in re-renders /auth/signin with ?error=...; success redirects to "/".
