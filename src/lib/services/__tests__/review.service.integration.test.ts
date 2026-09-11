@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { Rating, State } from "ts-fsrs";
+import { Rating, State, type Grade } from "ts-fsrs";
 import { createFlashcard } from "@/lib/services/flashcards.service";
 import { gradeFlashcardReview } from "@/lib/services/review.service";
 import { createTwoRealUsers, type RealSupabaseUsers } from "./helpers/real-supabase";
@@ -76,7 +76,7 @@ describe("review.service FSRS grading data-integrity (Risk #4)", () => {
       }
       const before = created.data;
 
-      const result = await gradeFlashcardReview(userA.client, before.id, rating);
+      const result = await gradeFlashcardReview(userA.client, before.id, rating as Grade);
       if (!("data" in result)) {
         throw new Error(`Grading failed: ${JSON.stringify(result)}`);
       }
