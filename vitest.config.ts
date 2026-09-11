@@ -1,5 +1,5 @@
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 
 // NOTE: intentionally NOT using Astro's documented getViteConfig() helper here.
 // See vitest.astro-env-server.stub.ts for why (@cloudflare/vite-plugin rejects
@@ -21,5 +21,10 @@ export default defineConfig({
     // vitest-dev/vitest v4.1.6, docs/guide/environment.md).
     environment: "node",
     setupFiles: ["./vitest.setup.ts"],
+    // tests/e2e/**/*.spec.ts are Playwright specs, not Vitest ones — Vitest's
+    // default include glob matches *.spec.ts too, so they must be excluded
+    // explicitly or `vitest`/lint-staged's `vitest related` tries to collect
+    // them and fails with "did not expect test() to be called here".
+    exclude: [...configDefaults.exclude, "tests/e2e/**"],
   },
 });
